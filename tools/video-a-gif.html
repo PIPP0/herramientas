@@ -46,8 +46,8 @@
     <div class="drop" id="drop">
       <div class="icon">🎬</div>
       <div class="main">Arrastra un video aquí o haz clic para elegir</div>
-      <div class="sub">MP4, WebM, MOV… lo que tu navegador pueda reproducir</div>
-      <input type="file" id="fileInput" accept="video/*">
+      <div class="sub">MP4, WebM, MOV, WebP animado… lo que tu navegador pueda reproducir</div>
+      <input type="file" id="fileInput" accept="video/*,image/webp">
     </div>
     <div class="file-chip" id="fileChip">
       <span>🎥</span>
@@ -55,6 +55,7 @@
       <span class="change" id="fileChange">Cambiar</span>
     </div>
     <video id="preview" class="hidden" controls muted playsinline></video>
+    <img id="webpPreview" class="hidden" alt="Vista previa del WebP animado" style="max-width:100%; border-radius:12px; margin-top:12px;">
   </div>
 
   <div class="card hidden" id="optionsCard">
@@ -119,6 +120,7 @@ const fileChip = document.getElementById('fileChip');
 const fileName = document.getElementById('fileName');
 const fileChange = document.getElementById('fileChange');
 const preview = document.getElementById('preview');
+const webpPreview = document.getElementById('webpPreview');
 const optionsCard = document.getElementById('optionsCard');
 const startRange = document.getElementById('startRange');
 const endRange = document.getElementById('endRange');
@@ -151,6 +153,13 @@ let ffmpeg = null;
 let ffmpegReady = false;
 let previewTimer = null;
 let toastTimer = null;
+// Un WebP animado no es un video: <video> no puede reproducirlo, y este
+// ffmpeg.wasm no sabe leer sus fotogramas (solo detecta la primera imagen
+// estática, "ANIM/ANMF" del formato animado no está soportado en esta
+// build). Se decodifica con la API nativa ImageDecoder del navegador y se
+// le pasan los fotogramas a ffmpeg como una secuencia de PNG.
+let currentIsWebp = false;
+let webpFrameTimes = null; // [{start, duration}] en segundos, uno por fotograma
 
 function setStep(n){
   [step1, step2, step3].forEach((el, i) => {
@@ -202,17 +211,79 @@ function clampTrim(fromStart){
   updateTimelineUI();
 }
 
-function handleFile(file){
-  if (!file || !file.type.startsWith('video/')){
-    showToast('Por favor elige un archivo de video válido.');
+function showTrimForVideo(){
+  previewBtn.classList.remove('hidden');
+  preview.classList.remove('hidden');
+  webpPreview.classList.add('hidden');
+}
+
+function showTrimForWebp(){
+  previewBtn.classList.add('hidden');
+  preview.classList.add('hidden');
+  webpPreview.classList.remove('hidden');
+}
+
+async function handleFile(file){
+  const isVideo = file && file.type.startsWith('video/');
+  const isWebp = file && (file.type === 'image/webp' || /\.webp$/i.test(file.name));
+  if (!file || (!isVideo && !isWebp)){
+    showToast('Por favor elige un archivo de video o WebP animado válido.');
     return;
   }
+
+  if (isWebp && typeof ImageDecoder === 'undefined'){
+    showToast('Tu navegador no soporta decodificar WebP animado (probá con Chrome o Edge).');
+    return;
+  }
+
   currentFile = file;
-  const url = URL.createObjectURL(file);
-  preview.src = url;
-  preview.classList.remove('hidden');
+  currentIsWebp = isWebp;
   fileName.textContent = file.name;
   fileChip.classList.add('show');
+  const url = URL.createObjectURL(file);
+
+  if (isWebp){
+    showTrimForWebp();
+    webpPreview.src = url;
+    try {
+      const buf = await file.arrayBuffer();
+      const decoder = new ImageDecoder({ data: buf, type: 'image/webp' });
+      await decoder.tracks.ready;
+      const track = decoder.tracks.selectedTrack;
+      const frameCount = track.frameCount || 1;
+      const times = [];
+      let t = 0;
+      for (let i = 0; i < frameCount; i++){
+        const { image } = await decoder.decode({ frameIndex: i });
+        const durSec = (image.duration || 100000) / 1e6;
+        times.push({ start: t, duration: durSec });
+        t += durSec;
+        image.close();
+      }
+      decoder.close();
+      webpFrameTimes = times;
+      videoDuration = t;
+    } catch (err) {
+      console.error(err);
+      showToast('No se pudo leer ese WebP animado: ' + (err?.message || err));
+      return;
+    }
+    startRange.min = 0;
+    endRange.min = 0;
+    startRange.max = videoDuration.toFixed(2);
+    endRange.max = videoDuration.toFixed(2);
+    startRange.value = 0;
+    endRange.value = videoDuration.toFixed(2);
+    updateTimelineUI();
+    optionsCard.classList.remove('hidden');
+    resultCard.classList.remove('show');
+    setStep(2);
+    optionsCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  showTrimForVideo();
+  preview.src = url;
   preview.onloadedmetadata = () => {
     videoDuration = preview.duration || 0;
     startRange.min = 0;
@@ -328,6 +399,46 @@ function burstConfetti(){
   tick();
 }
 
+// Decodifica los fotogramas del WebP animado que caen dentro de [start,end]
+// y los deja escritos en el sistema de archivos virtual de ffmpeg como una
+// secuencia de PNG (frame_000.png, frame_001.png, ...), ya que ffmpeg no
+// puede leer el WebP animado directamente. Devuelve los fps de entrada a
+// usar (según la duración real de esos fotogramas) para que ffmpeg sepa a
+// qué velocidad reproducirlos antes de re-muestrear al fps elegido.
+async function writeWebpFramesToFFmpeg(start, end){
+  const buf = await currentFile.arrayBuffer();
+  const decoder = new ImageDecoder({ data: buf, type: 'image/webp' });
+  await decoder.tracks.ready;
+
+  const indices = webpFrameTimes
+    .map((f, i) => ({ i, ...f }))
+    .filter(f => f.start + f.duration > start && f.start < end);
+  if (indices.length === 0) indices.push({ i: 0, ...webpFrameTimes[0] });
+
+  const canvas = document.createElement('canvas');
+  let ctx = null;
+  let n = 0;
+  for (const { i } of indices){
+    const { image } = await decoder.decode({ frameIndex: i });
+    if (!ctx){
+      canvas.width = image.displayWidth;
+      canvas.height = image.displayHeight;
+      ctx = canvas.getContext('2d');
+    }
+    ctx.drawImage(image, 0, 0);
+    image.close();
+    const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+    const name = 'frame_' + String(n).padStart(4, '0') + '.png';
+    await ffmpeg.writeFile(name, new Uint8Array(await blob.arrayBuffer()));
+    n++;
+  }
+  decoder.close();
+
+  const totalDur = indices.reduce((s, f) => s + f.duration, 0) || 1;
+  const srcFps = Math.max(1, n / totalDur);
+  return srcFps;
+}
+
 convertBtn.addEventListener('click', async () => {
   if (!currentFile) return;
   resultCard.classList.remove('show');
@@ -345,21 +456,32 @@ convertBtn.addEventListener('click', async () => {
     const fps = parseInt(fpsRange.value, 10);
     const width = parseInt(widthRange.value, 10);
 
-    const inputName = 'input' + (currentFile.name.match(/\.[a-zA-Z0-9]+$/)?.[0] || '.mp4');
-    await ffmpeg.writeFile(inputName, await fetchFile(currentFile));
-
     progressLabel.innerHTML = '<span class="spin">⚙️</span> Convirtiendo…';
 
     const filter = `fps=${fps},scale=${width}:-1:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=diff[p];[s1][p]paletteuse=dither=bayer`;
 
-    await ffmpeg.exec([
-      '-ss', String(start),
-      '-t', String(dur),
-      '-i', inputName,
-      '-vf', filter,
-      '-loop', '0',
-      'output.gif'
-    ]);
+    if (currentIsWebp){
+      const srcFps = await writeWebpFramesToFFmpeg(start, end);
+      await ffmpeg.exec([
+        '-framerate', String(srcFps),
+        '-i', 'frame_%04d.png',
+        '-vf', filter,
+        '-loop', '0',
+        'output.gif'
+      ]);
+    } else {
+      const inputName = 'input' + (currentFile.name.match(/\.[a-zA-Z0-9]+$/)?.[0] || '.mp4');
+      await ffmpeg.writeFile(inputName, await fetchFile(currentFile));
+
+      await ffmpeg.exec([
+        '-ss', String(start),
+        '-t', String(dur),
+        '-i', inputName,
+        '-vf', filter,
+        '-loop', '0',
+        'output.gif'
+      ]);
+    }
 
     const data = await ffmpeg.readFile('output.gif');
     const blob = new Blob([data.buffer], { type: 'image/gif' });
@@ -386,9 +508,14 @@ convertBtn.addEventListener('click', async () => {
 
 resetBtn.addEventListener('click', () => {
   currentFile = null;
+  currentIsWebp = false;
+  webpFrameTimes = null;
   fileInput.value = '';
   preview.src = '';
   preview.classList.add('hidden');
+  webpPreview.src = '';
+  webpPreview.classList.add('hidden');
+  previewBtn.classList.remove('hidden');
   fileChip.classList.remove('show');
   optionsCard.classList.add('hidden');
   resultCard.classList.remove('show');
