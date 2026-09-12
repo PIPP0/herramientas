@@ -3,90 +3,110 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Becas100: oportunidades de becas con cobertura 100%, verificadas y organizadas por categoría." />
+  <meta name="description" content="Becas100: oportunidades con financiamiento 100% verificadas y organizadas por categoría." />
   <title>Becas100 · Becas 100% verificadas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#">Becas<span>100</span></a>
+    <a class="brand" href="#"><span class="brand-mark">B</span><span>Becas100</span></a>
     <nav>
-      <a href="#becas">Becas</a>
-      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#becas">Explorar</a>
+      <a href="#como-funciona">Criterio</a>
       <a href="#fuentes">Fuentes</a>
     </nav>
+    <a class="nav-cta" href="#becas">Buscar becas</a>
   </header>
 
   <main>
     <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">Actualización automática diaria</div>
-        <h1>Becas con cobertura <em>100%</em>, sin perder tiempo.</h1>
-        <p>Encuentra oportunidades verificadas por categoría, modalidad, país y nivel académico. Las becas parciales quedan fuera.</p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#becas">Explorar becas</a>
-          <button class="btn ghost" id="favoritesButton">Ver favoritas <span id="favoriteCount">0</span></button>
+      <div class="hero-kicker">Curaduría de oportunidades · actualización diaria</div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>No más “hasta 100%”.<br><em>Solo becas completas.</em></h1>
+          <p>Un buscador curado de oportunidades con financiamiento total, filtradas por área, país, modalidad y nivel.</p>
         </div>
+        <aside class="hero-note">
+          <span class="note-label">Hoy en Becas100</span>
+          <div class="hero-stats">
+            <div><strong id="statVerified">0</strong><span>verificadas</span></div>
+            <div><strong id="statOpen">0</strong><span>abiertas</span></div>
+            <div><strong id="statOnline">0</strong><span>online</span></div>
+          </div>
+          <small id="lastUpdated">Actualizando…</small>
+        </aside>
       </div>
-      <div class="hero-card" aria-label="Resumen de becas">
-        <div><strong id="statVerified">0</strong><span>100% verificadas</span></div>
-        <div><strong id="statOpen">0</strong><span>abiertas</span></div>
-        <div><strong id="statOnline">0</strong><span>online</span></div>
-        <small id="lastUpdated">Actualizando…</small>
+      <div class="hero-search-row">
+        <div class="hero-search">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Busca IA, diseño, España, online…" />
+        </div>
+        <button class="favorite-toggle" id="favoritesButton">Guardadas <span id="favoriteCount">0</span></button>
       </div>
     </section>
 
-    <section class="toolbar" id="becas">
-      <div class="search-wrap">
-        <input id="searchInput" type="search" placeholder="Buscar por programa, institución o país…" />
+    <section class="explore" id="becas">
+      <div class="section-intro">
+        <div>
+          <span class="section-number">01</span>
+          <h2>Explorar oportunidades</h2>
+        </div>
+        <p>Solo mostramos oportunidades verificadas con cobertura completa.</p>
       </div>
-      <div class="filters">
-        <select id="categoryFilter"><option value="">Todas las categorías</option></select>
-        <select id="countryFilter"><option value="">Todos los países</option></select>
-        <select id="modeFilter"><option value="">Todas las modalidades</option></select>
-        <select id="levelFilter"><option value="">Todos los niveles</option></select>
+
+      <div class="filters-panel">
+        <select id="categoryFilter"><option value="">Categoría</option></select>
+        <select id="countryFilter"><option value="">País</option></select>
+        <select id="modeFilter"><option value="">Modalidad</option></select>
+        <select id="levelFilter"><option value="">Nivel</option></select>
         <select id="statusFilter">
-          <option value="">Todos los estados</option>
+          <option value="">Estado</option>
           <option value="open">Abiertas</option>
           <option value="upcoming">Próximamente</option>
           <option value="closed">Cerradas</option>
         </select>
+        <button class="clear" id="clearFilters">Limpiar</button>
       </div>
-    </section>
 
-    <section class="results-head">
-      <div>
-        <h2>Oportunidades verificadas</h2>
+      <div class="results-head">
         <p id="resultsCount">Cargando becas…</p>
+        <span>Ordenadas por vigencia y fecha</span>
       </div>
-      <button class="text-btn" id="clearFilters">Limpiar filtros</button>
+      <section class="grid" id="scholarshipGrid" aria-live="polite"></section>
     </section>
 
-    <section class="grid" id="scholarshipGrid" aria-live="polite"></section>
-
-    <section class="trust" id="como-funciona">
-      <div>
-        <div class="eyebrow">Criterio editorial</div>
-        <h2>“100%” significa 100%.</h2>
-        <p>Una oportunidad solo entra al catálogo verificado cuando la fuente oficial indica cobertura total de matrícula/arancel o financiamiento completo. Si el rastreador detecta una oportunidad sin evidencia suficiente, queda en revisión y no se mezcla con las verificadas.</p>
+    <section class="manifesto" id="como-funciona">
+      <div class="manifesto-title">
+        <span class="section-number light">02</span>
+        <h2>La regla es simple:<br><em>100% significa 100%.</em></h2>
       </div>
-      <div class="trust-list">
-        <div><span>01</span><p><strong>Fuentes oficiales</strong><br />Universidades, fundaciones, gobiernos y organizaciones.</p></div>
-        <div><span>02</span><p><strong>Revisión diaria</strong><br />Fechas, enlaces y estado se comprueban automáticamente.</p></div>
-        <div><span>03</span><p><strong>Sin becas parciales</strong><br />50%, 60% o “hasta 100%” no se publican como completas.</p></div>
+      <div class="manifesto-copy">
+        <p>No agregamos una oportunidad porque “suene buena”. Debe existir evidencia explícita de cobertura total en una fuente oficial.</p>
+        <div class="principles">
+          <div><span>01</span><strong>Fuente oficial</strong><p>Universidad, fundación, gobierno u organización responsable.</p></div>
+          <div><span>02</span><strong>Revisión diaria</strong><p>Fechas, vigencia y enlaces se vuelven a comprobar.</p></div>
+          <div><span>03</span><strong>Sin letra chica</strong><p>“Hasta 100%”, descuentos o becas parciales quedan fuera.</p></div>
+        </div>
       </div>
     </section>
 
     <section class="sources" id="fuentes">
-      <div class="eyebrow">Cobertura</div>
-      <h2>Fuentes monitorizadas</h2>
+      <div class="section-intro compact">
+        <div>
+          <span class="section-number">03</span>
+          <h2>Fuentes monitorizadas</h2>
+        </div>
+      </div>
       <div id="sourceChips" class="chips"></div>
     </section>
   </main>
 
   <footer>
-    <strong>Becas100</strong>
-    <span>Datos orientativos. Siempre confirma requisitos y condiciones en la fuente oficial antes de postular.</span>
+    <div><strong>Becas100</strong><span>Curaduría de becas completas.</span></div>
+    <p>Confirma siempre requisitos y condiciones finales en la fuente oficial antes de postular.</p>
   </footer>
 
   <template id="cardTemplate">
@@ -95,14 +115,16 @@
         <span class="category"></span>
         <button class="favorite" aria-label="Guardar en favoritas">♡</button>
       </div>
-      <h3></h3>
-      <p class="institution"></p>
-      <div class="meta"></div>
-      <p class="summary"></p>
+      <div class="card-main">
+        <h3></h3>
+        <p class="institution"></p>
+        <div class="meta"></div>
+        <p class="summary"></p>
+      </div>
       <div class="coverage"></div>
       <div class="card-bottom">
         <span class="status"></span>
-        <a class="apply" target="_blank" rel="noopener noreferrer">Ver convocatoria →</a>
+        <a class="apply" target="_blank" rel="noopener noreferrer">Ir a postulación ↗</a>
       </div>
     </article>
   </template>
