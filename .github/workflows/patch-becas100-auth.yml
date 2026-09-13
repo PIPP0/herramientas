@@ -1,0 +1,33 @@
+name: Patch Becas100 auth dashboard
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-becas100-auth.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inject production auth dashboard
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('becas100/stable/index.html')
+          s=p.read_text()
+          old='<button class="profile">Mi perfil →</button>'
+          if old in s:
+              s=s.replace(old,'<button class="profile">Ingresar</button>',1)
+          tag='<script src="auth-dashboard.js?v=1"></script>'
+          if tag not in s:
+              s=s.replace('</body>',tag+'\n</body>')
+          p.write_text(s)
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add becas100/stable/index.html
+          git diff --cached --quiet || git commit -m "Enable login logout and user dashboard"
+          git push
