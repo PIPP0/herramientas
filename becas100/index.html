@@ -3,17 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#050507" />
+  <meta name="theme-color" content="#05070d" />
   <meta name="description" content="Becas100: explora en un mapa becas con financiamiento 100% verificadas y actualizadas diariamente." />
   <title>Becas100 · Mapa de becas 100%</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-  <link rel="stylesheet" href="styles.css?v=map1" />
+  <link rel="stylesheet" href="styles.css?v=map2" />
 </head>
 <body>
-  <div class="aurora aurora-a"></div><div class="aurora aurora-b"></div><div class="noise"></div>
+  <div class="aurora aurora-a"></div><div class="aurora aurora-b"></div>
   <header class="topbar shell">
     <a class="brand" href="#"><span class="brand-symbol">B</span><span>Becas100</span></a>
     <nav><a href="#mapa">Mapa</a><a href="#becas">Becas</a><a href="#como-funciona">Criterio</a></nav>
@@ -51,9 +47,32 @@
         <button class="reset-btn" id="clearFilters">Limpiar filtros</button>
       </aside>
 
-      <div class="map-stage">
-        <div id="worldMap" class="world-map" aria-label="Mapa interactivo de becas"></div>
-        <div class="map-legend"><span><i class="dot open"></i> abiertas</span><span><i class="dot closed"></i> históricas / cerradas</span></div>
+      <div class="map-stage" id="mapStage">
+        <div class="map-viewport" id="mapViewport">
+          <svg class="world-svg" viewBox="0 0 1000 520" role="img" aria-label="Mapa mundial estilizado">
+            <defs>
+              <linearGradient id="landA" x1="0" x2="1"><stop stop-color="#102a4d"/><stop offset="1" stop-color="#0b1930"/></linearGradient>
+              <linearGradient id="landB" x1="0" x2="1"><stop stop-color="#0c3142"/><stop offset="1" stop-color="#0b1930"/></linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g class="grid-map">
+              <path d="M78 107 L133 74 194 80 232 108 252 151 222 177 202 214 164 212 129 181 93 167 70 139Z" fill="url(#landA)"/>
+              <path d="M207 226 L251 244 279 287 267 332 243 374 225 423 205 390 194 341 178 299 185 260Z" fill="url(#landA)"/>
+              <path d="M425 105 L469 82 517 90 548 113 580 121 612 101 675 99 730 118 785 110 833 131 817 162 770 179 724 172 694 195 653 189 623 211 579 204 548 177 514 172 486 149 451 147Z" fill="url(#landB)"/>
+              <path d="M471 196 L522 191 563 214 584 251 574 304 547 347 520 397 485 380 463 334 447 286 451 235Z" fill="url(#landB)"/>
+              <path d="M853 335 L900 326 940 349 934 386 901 405 861 392 836 363Z" fill="url(#landA)"/>
+              <path d="M814 209 L841 205 856 221 847 244 827 240Z" fill="url(#landA)"/>
+              <path d="M383 86 L401 77 415 88 405 102 389 100Z" fill="url(#landB)"/>
+            </g>
+            <g class="map-lines" opacity=".24">
+              <path d="M0 130H1000M0 260H1000M0 390H1000M200 0V520M400 0V520M600 0V520M800 0V520"/>
+            </g>
+          </svg>
+          <div class="marker-layer" id="markerLayer"></div>
+        </div>
+        <div class="map-tools"><button id="zoomIn" aria-label="Acercar">+</button><button id="zoomOut" aria-label="Alejar">−</button><button id="resetMap" aria-label="Restablecer">◎</button></div>
+        <div class="map-legend"><span><i class="dot open"></i> abiertas</span><span><i class="dot closed"></i> históricas</span></div>
+        <div class="map-hint">Arrastra para explorar · usa + / − para zoom</div>
       </div>
 
       <aside class="country-panel" id="countryPanel" aria-live="polite">
@@ -68,7 +87,7 @@
     </section>
 
     <section class="destinations shell">
-      <div class="section-head"><div><span class="eyebrow">Destinos</span><h2>Países con oportunidades</h2></div><p>Se actualizan automáticamente con la base verificada.</p></div>
+      <div class="section-head"><div><span class="eyebrow">Destinos</span><h2>Países con oportunidades</h2></div><p>Datos reales de nuestra base verificada.</p></div>
       <div class="destination-row" id="destinationRow"></div>
     </section>
 
@@ -86,8 +105,6 @@
   <footer class="shell"><div><strong>Becas100</strong><span>Explora oportunidades reales.</span></div><span>Confirma siempre las condiciones finales en la fuente oficial.</span></footer>
 
   <template id="cardTemplate"><article class="card"><div class="card-top"><span class="category"></span><button class="favorite">♡</button></div><div class="card-main"><h3></h3><p class="institution"></p><div class="meta"></div><p class="summary"></p></div><div class="coverage"></div><div class="card-bottom"><span class="status"></span><a class="apply" target="_blank" rel="noopener noreferrer">Postular <span>↗</span></a></div></article></template>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="app.js?v=map1" defer></script>
+  <script src="app.js?v=map2" defer></script>
 </body>
 </html>
