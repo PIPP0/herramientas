@@ -3,108 +3,91 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#05070d" />
-  <meta name="description" content="Becas100: explora en un mapa becas con financiamiento 100% verificadas y actualizadas diariamente." />
-  <title>Becas100 · Mapa de becas 100%</title>
-  <link rel="stylesheet" href="styles.css?v=map2" />
+  <meta name="theme-color" content="#020711" />
+  <meta name="description" content="Becas100: mapa interactivo de becas con financiamiento 100% verificadas." />
+  <title>Becas100 · Mapa mundial de becas 100%</title>
+  <link rel="stylesheet" href="styles.css?v=map3" />
 </head>
 <body>
-  <div class="aurora aurora-a"></div><div class="aurora aurora-b"></div>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="grain"></div>
+
   <header class="topbar shell">
-    <a class="brand" href="#"><span class="brand-symbol">B</span><span>Becas100</span></a>
-    <nav><a href="#mapa">Mapa</a><a href="#becas">Becas</a><a href="#como-funciona">Criterio</a></nav>
-    <button class="saved-top" id="favoritesButton">♡ <span id="favoriteCount">0</span></button>
+    <a class="brand" href="#"><span class="brand-mark">B</span><span><b>Becas100</b><small>tus sueños sin límites</small></span></a>
+    <nav><a href="#mapa">Explorar</a><a class="active" href="#mapa">Mapa</a><a href="#becas">Becas</a><a href="#para-ti">Para ti</a><a href="#criterio">Criterio</a></nav>
+    <div class="top-actions"><label class="nav-search"><span>⌕</span><input id="topSearch" placeholder="Buscar becas, país o universidad…" /></label><button id="favoritesButton" class="icon-btn" aria-label="Favoritas">♡ <span id="favoriteCount">0</span></button></div>
   </header>
 
   <main>
-    <section class="intro shell">
-      <div class="intro-copy">
-        <div class="live-pill"><span></span> Base viva · actualización diaria</div>
-        <h1>¿Hasta dónde te puede llevar una <em>beca?</em></h1>
-        <p>Explora el mundo, descubre oportunidades 100% financiadas y entra directo a la postulación oficial.</p>
-      </div>
-      <div class="intro-stats">
-        <div><strong id="statVerified">0</strong><span>verificadas</span></div>
-        <div><strong id="statOpen">0</strong><span>abiertas</span></div>
-        <div><strong id="statCountries">0</strong><span>países</span></div>
-        <small id="lastUpdated">Actualizando…</small>
-      </div>
-    </section>
+    <section class="experience shell" id="mapa">
+      <aside class="explorer-panel">
+        <div class="eyebrow">◎ Explora el mundo</div>
+        <h1>Oportunidades<br><span>sin fronteras.</span></h1>
+        <p>Descubre becas 100% financiadas. Filtra, explora y entra directo a la postulación oficial.</p>
 
-    <section class="map-shell" id="mapa">
-      <aside class="map-controls">
-        <span class="eyebrow">Explora el mundo</span>
-        <h2>Oportunidades<br>sin fronteras.</h2>
-        <p>Elige un país o filtra por tipo de beca. El mapa se actualiza en tiempo real.</p>
-        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Buscar país o beca…" /></label>
-        <div class="filter-row">
-          <select id="categoryFilter"><option value="">Todas las categorías</option></select>
-          <select id="modeFilter"><option value="">Modalidad</option></select>
-          <select id="levelFilter"><option value="">Nivel</option></select>
-          <select id="statusFilter"><option value="">Estado</option><option value="open">Abiertas</option><option value="upcoming">Próximamente</option><option value="closed">Cerradas</option></select>
-          <select id="countryFilter"><option value="">Todos los países</option></select>
+        <label class="search-box"><span>⌕</span><input id="searchInput" placeholder="Buscar país, universidad o beca…" /></label>
+        <div class="filter-stack">
+          <label><span>Categoría</span><select id="categoryFilter"><option value="">Todas</option></select></label>
+          <label><span>Modalidad</span><select id="modeFilter"><option value="">Todas</option></select></label>
+          <label><span>Nivel</span><select id="levelFilter"><option value="">Todos</option></select></label>
+          <label><span>Estado</span><select id="statusFilter"><option value="">Todos</option><option value="open">Abiertas</option><option value="upcoming">Próximas</option><option value="closed">Históricas</option></select></label>
+          <label><span>País</span><select id="countryFilter"><option value="">Todos</option></select></label>
         </div>
-        <button class="reset-btn" id="clearFilters">Limpiar filtros</button>
+        <button class="apply-filters" id="applyFilters">☷ Aplicar filtros</button>
+        <button class="clear-filters" id="clearFilters">Limpiar filtros</button>
+
+        <div class="sidebar-stats">
+          <div><strong id="statVerified">0</strong><span>Becas verificadas</span></div>
+          <div><strong id="statCountries">0</strong><span>Países</span></div>
+          <div><strong>100%</strong><span>Financiadas</span></div>
+          <div class="update-line">⚡ <span id="lastUpdated">Actualización diaria</span></div>
+        </div>
+        <blockquote>“Un mapa, miles de historias.<br>La tuya puede ser la próxima.”</blockquote>
       </aside>
 
-      <div class="map-stage" id="mapStage">
-        <div class="map-viewport" id="mapViewport">
-          <svg class="world-svg" viewBox="0 0 1000 520" role="img" aria-label="Mapa mundial estilizado">
-            <defs>
-              <linearGradient id="landA" x1="0" x2="1"><stop stop-color="#102a4d"/><stop offset="1" stop-color="#0b1930"/></linearGradient>
-              <linearGradient id="landB" x1="0" x2="1"><stop stop-color="#0c3142"/><stop offset="1" stop-color="#0b1930"/></linearGradient>
-              <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <g class="grid-map">
-              <path d="M78 107 L133 74 194 80 232 108 252 151 222 177 202 214 164 212 129 181 93 167 70 139Z" fill="url(#landA)"/>
-              <path d="M207 226 L251 244 279 287 267 332 243 374 225 423 205 390 194 341 178 299 185 260Z" fill="url(#landA)"/>
-              <path d="M425 105 L469 82 517 90 548 113 580 121 612 101 675 99 730 118 785 110 833 131 817 162 770 179 724 172 694 195 653 189 623 211 579 204 548 177 514 172 486 149 451 147Z" fill="url(#landB)"/>
-              <path d="M471 196 L522 191 563 214 584 251 574 304 547 347 520 397 485 380 463 334 447 286 451 235Z" fill="url(#landB)"/>
-              <path d="M853 335 L900 326 940 349 934 386 901 405 861 392 836 363Z" fill="url(#landA)"/>
-              <path d="M814 209 L841 205 856 221 847 244 827 240Z" fill="url(#landA)"/>
-              <path d="M383 86 L401 77 415 88 405 102 389 100Z" fill="url(#landB)"/>
-            </g>
-            <g class="map-lines" opacity=".24">
-              <path d="M0 130H1000M0 260H1000M0 390H1000M200 0V520M400 0V520M600 0V520M800 0V520"/>
-            </g>
-          </svg>
-          <div class="marker-layer" id="markerLayer"></div>
+      <section class="map-column">
+        <div class="map-toolbar">
+          <button class="status-chip active" data-quick-status=""><i class="green"></i>Todas</button>
+          <button class="status-chip" data-quick-status="open"><i class="green"></i>Abiertas</button>
+          <button class="status-chip" data-quick-status="upcoming"><i class="purple"></i>Próximas</button>
+          <button class="status-chip" data-quick-status="closed"><i class="blue"></i>Históricas</button>
         </div>
-        <div class="map-tools"><button id="zoomIn" aria-label="Acercar">+</button><button id="zoomOut" aria-label="Alejar">−</button><button id="resetMap" aria-label="Restablecer">◎</button></div>
-        <div class="map-legend"><span><i class="dot open"></i> abiertas</span><span><i class="dot closed"></i> históricas</span></div>
-        <div class="map-hint">Arrastra para explorar · usa + / − para zoom</div>
-      </div>
 
-      <aside class="country-panel" id="countryPanel" aria-live="polite">
-        <button class="panel-close" id="closePanel" aria-label="Cerrar">×</button>
-        <div class="panel-empty" id="panelEmpty"><span class="panel-glow"></span><p>Toca un país iluminado para ver sus becas.</p></div>
-        <div class="panel-content" id="panelContent" hidden>
-          <div class="country-head"><span class="country-flag" id="panelFlag">🌍</span><div><h3 id="panelCountry">País</h3><p id="panelCount">0 becas</p></div></div>
-          <div class="panel-tabs"><button class="active" data-panel-status="">Todas</button><button data-panel-status="open">Abiertas</button><button data-panel-status="closed">Históricas</button></div>
+        <div class="map-stage" id="mapStage">
+          <div class="map-world" id="mapWorld">
+            <div class="continent-glow glow-americas"></div><div class="continent-glow glow-europe"></div><div class="continent-glow glow-asia"></div><div class="continent-glow glow-africa"></div><div class="continent-glow glow-oceania"></div>
+            <img class="world-img" id="worldImage" src="https://raw.githubusercontent.com/melenaos/Menelabs.VectorAtlas/main/dist/world.svg" alt="Mapa mundial" />
+            <svg class="route-layer" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true"><path id="travelArc" d="M250 350 Q420 135 525 165"/><circle id="travelDot" cx="250" cy="350" r="4"/></svg>
+            <div class="marker-layer" id="markerLayer"></div>
+          </div>
+          <div class="map-tools"><button id="zoomIn">+</button><button id="zoomOut">−</button><button id="resetMap">◎</button></div>
+          <div class="map-attribution">Mapa: Natural Earth · VectorAtlas</div>
+        </div>
+
+        <div class="map-footer-stats"><div><span>🎓</span><b id="footerVerified">0</b><small>becas verificadas</small></div><div><span>🌐</span><b id="footerCountries">0</b><small>países</small></div><div><span>👥</span><b>100%</b><small>financiadas</small></div><div><span>⚡</span><b>Diaria</b><small>actualización</small></div></div>
+
+        <section class="destinations" id="para-ti"><div class="section-line"><h2>Destinos disponibles</h2><span>Datos reales de la base</span></div><div class="destination-row" id="destinationRow"></div></section>
+      </section>
+
+      <aside class="country-panel" id="countryPanel">
+        <button id="closePanel" class="panel-close">×</button>
+        <div class="panel-empty" id="panelEmpty"><div class="empty-orb"></div><p>Toca un país iluminado para ver sus becas.</p></div>
+        <div id="panelContent" class="panel-content" hidden>
+          <div class="country-cover" id="countryCover"><div class="cover-shine"></div><div class="country-title"><span id="panelFlag">🌍</span><div><h2 id="panelCountry">País</h2><p id="panelCount">0 becas disponibles</p></div></div></div>
+          <div class="panel-tabs"><button class="active" data-panel-status="">Destacadas</button><button data-panel-status="open">Abiertas</button><button data-panel-status="closed">Históricas</button></div>
           <div class="panel-list" id="panelList"></div>
+          <button class="panel-all" id="panelAll">Ver todas las becas →</button>
         </div>
       </aside>
     </section>
 
-    <section class="destinations shell">
-      <div class="section-head"><div><span class="eyebrow">Destinos</span><h2>Países con oportunidades</h2></div><p>Datos reales de nuestra base verificada.</p></div>
-      <div class="destination-row" id="destinationRow"></div>
-    </section>
+    <section class="catalog shell" id="becas"><div class="section-head"><div><span class="eyebrow">Catálogo</span><h2>Todas las becas verificadas</h2></div><p id="resultsCount">Cargando…</p></div><div class="grid" id="scholarshipGrid"></div></section>
 
-    <section class="catalog shell" id="becas">
-      <div class="section-head"><div><span class="eyebrow">Catálogo</span><h2>Todas las becas verificadas</h2></div><p id="resultsCount">Cargando…</p></div>
-      <section class="grid" id="scholarshipGrid"></section>
-    </section>
-
-    <section class="trust shell" id="como-funciona">
-      <div><span class="eyebrow">La regla</span><h2>100% significa <span>100%.</span></h2><p>Si la fuente oficial no confirma cobertura total, no entra al catálogo verificado.</p></div>
-      <div class="trust-grid"><article><b>01</b><strong>Fuente oficial</strong><p>Universidades, fundaciones y organismos responsables.</p></article><article><b>02</b><strong>Revisión diaria</strong><p>Vigencia, fechas y links se vuelven a comprobar.</p></article><article><b>03</b><strong>Sin “hasta”</strong><p>No mezclamos descuentos parciales con becas completas.</p></article></div>
-    </section>
+    <section class="trust shell" id="criterio"><div><span class="eyebrow">La regla</span><h2>100% significa <span>100%.</span></h2><p>Solo entran oportunidades donde la fuente oficial confirma cobertura total.</p></div><div class="trust-grid"><article><b>01</b><strong>Fuente oficial</strong><p>Universidades, fundaciones y organismos responsables.</p></article><article><b>02</b><strong>Revisión diaria</strong><p>Vigencia, fechas y enlaces se vuelven a comprobar.</p></article><article><b>03</b><strong>Sin “hasta”</strong><p>No mezclamos descuentos parciales con becas completas.</p></article></div></section>
   </main>
 
-  <footer class="shell"><div><strong>Becas100</strong><span>Explora oportunidades reales.</span></div><span>Confirma siempre las condiciones finales en la fuente oficial.</span></footer>
+  <footer class="shell"><strong>Becas100</strong><span>Confirma siempre requisitos y condiciones en la fuente oficial.</span></footer>
 
   <template id="cardTemplate"><article class="card"><div class="card-top"><span class="category"></span><button class="favorite">♡</button></div><div class="card-main"><h3></h3><p class="institution"></p><div class="meta"></div><p class="summary"></p></div><div class="coverage"></div><div class="card-bottom"><span class="status"></span><a class="apply" target="_blank" rel="noopener noreferrer">Postular <span>↗</span></a></div></article></template>
-  <script src="app.js?v=map2" defer></script>
+  <script src="app.js?v=map3" defer></script>
 </body>
 </html>
