@@ -1,1 +1,94 @@
-{"candidates":[],"generatedAt":null,"note":"Oportunidades detectadas automáticamente que aún no tienen evidencia suficiente para publicarse como 100% verificadas."}
+{
+  "candidates": [
+    {
+      "id": "cerrada-20-becas-del-instituto-de-formaci-n-cursos-y-diplomados-2026",
+      "title": "Cerrada   \n   \n       \n   \n         20 Becas del Instituto de Formación. Cursos y diplomados 2026",
+      "sourceName": "OEI",
+      "url": "https://oei.int/becas/becas-iifac-cursos-diplomados-2026/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:48:41Z"
+    },
+    {
+      "id": "convocatorias",
+      "title": "Convocatorias",
+      "sourceName": "Skillnest",
+      "url": "https://www.skillnest.com/convocatorias",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:48:49Z"
+    },
+    {
+      "id": "matildex-ia",
+      "title": "Matildex IA",
+      "sourceName": "Skillnest",
+      "url": "https://www.matildex.com",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:48:51Z"
+    },
+    {
+      "id": "becas",
+      "title": "Becas",
+      "sourceName": "Desafío Latam",
+      "url": "https://desafiolatam.com/becas",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:48:53Z"
+    },
+    {
+      "id": "impacto-regional-2026-bhp-foundation-fundaci-n-pa-s-digital-conecta-nort",
+      "title": "Impacto regional 2026 BHP Foundation · Fundación País Digital Conecta Norte  ·  600 becas para jóvenes de Antofagasta Leer nota →",
+      "sourceName": "Desafío Latam",
+      "url": "https://conectanorte.cl/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:48:58Z"
+    },
+    {
+      "id": "formaci-n-in-house-2026-natura-natura-automatizaci-n-e-ia-con-n8n-google",
+      "title": "Formación in-house 2026 Natura Natura  ·  Automatización e IA con n8n, Google Workspace y Databricks Leer nota →",
+      "sourceName": "Desafío Latam",
+      "url": "https://desafiolatam.com/proyectos",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:48:59Z"
+    },
+    {
+      "id": "gobiernos-locales-latam-2024-pinn-costa-rica-mitic-paraguay-habilidades-",
+      "title": "Gobiernos locales · LATAM 2024 PINN Costa Rica · MITIC Paraguay Habilidades Digitales para Latam  ·  Full Stack y Data Science para talento regional Leer nota →",
+      "sourceName": "Desafío Latam",
+      "url": "https://www.abc.com.py/nacionales/2024/05/21/atencion-mitic-ofrece-400-becas-para-cursos-intensivos-en-competencias-digitales/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:49:01Z"
+    },
+    {
+      "id": "abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-e",
+      "title": "Abierto Proceso Formativo En Unreal Engine Generalista Y Unreal Engine Especialidad Programacion Blueprints Intermedio",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/convocatoria/abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-especialidad-programacion-blueprints-intermedio/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:49:07Z"
+    },
+    {
+      "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine",
+      "title": "Inscribete Ahora En Nuestros Cursos De Unreal Engine",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:49:10Z"
+    },
+    {
+      "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista",
+      "title": "Inscribete Ahora En Nuestros Cursos De Unreal Engine Generalista",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:49:12Z"
+    },
+    {
+      "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en",
+      "title": "Inscribete Ahora En Nuestros Cursos De Unreal Engine Con Especialidad En Animacion O Videojuegos",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en-animacion-o-videojuegos/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-09-13T13:49:13Z"
+    }
+  ],
+  "generatedAt": "2026-09-13T13:49:13Z",
+  "note": "Detección automática: no se publica como verificada hasta confirmar cobertura 100% en fuente oficial."
+}
