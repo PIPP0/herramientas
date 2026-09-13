@@ -3,28 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#020711" />
-  <meta name="description" content="Becas100: mapa interactivo de becas con financiamiento 100% verificadas." />
-  <title>Becas100 · Mapa mundial de becas 100%</title>
-  <link rel="stylesheet" href="styles.css?v=map3" />
+  <meta name="theme-color" content="#020812" />
+  <meta name="description" content="Becas100: explora becas 100% financiadas en un mapa mundial interactivo." />
+  <title>Becas100 · Mapa mundial de becas</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=rebuild1" />
 </head>
 <body>
   <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="grain"></div>
 
-  <header class="topbar shell">
-    <a class="brand" href="#"><span class="brand-mark">B</span><span><b>Becas100</b><small>tus sueños sin límites</small></span></a>
-    <nav><a href="#mapa">Explorar</a><a class="active" href="#mapa">Mapa</a><a href="#becas">Becas</a><a href="#para-ti">Para ti</a><a href="#criterio">Criterio</a></nav>
-    <div class="top-actions"><label class="nav-search"><span>⌕</span><input id="topSearch" placeholder="Buscar becas, país o universidad…" /></label><button id="favoritesButton" class="icon-btn" aria-label="Favoritas">♡ <span id="favoriteCount">0</span></button></div>
+  <header class="topbar">
+    <a class="brand" href="#mapa"><span class="brand-mark">B</span><span><b>Becas100</b><small>Tus sueños sin límites</small></span></a>
+    <nav aria-label="Principal"><a href="#mapa">Explorar</a><a class="active" href="#mapa">Mapa</a><a href="#becas">Becas</a><a href="#destinos">Para ti</a><a href="#criterio">Recursos</a></nav>
+    <div class="top-actions">
+      <label class="top-search"><span>⌕</span><input id="topSearch" type="search" placeholder="Buscar becas, país o universidad…"></label>
+      <button class="circle-action" id="themeButton" aria-label="Cambiar intensidad visual">◐</button>
+      <button class="circle-action" id="favoritesButton" aria-label="Ver favoritas">♡ <span id="favoriteCount">0</span></button>
+      <button class="profile-button" id="profileButton">Mi perfil</button>
+    </div>
   </header>
 
   <main>
-    <section class="experience shell" id="mapa">
-      <aside class="explorer-panel">
+    <section class="experience" id="mapa">
+      <aside class="explorer-panel" id="filtersPanel">
         <div class="eyebrow">◎ Explora el mundo</div>
         <h1>Oportunidades<br><span>sin fronteras.</span></h1>
-        <p>Descubre becas 100% financiadas. Filtra, explora y entra directo a la postulación oficial.</p>
+        <p>Descubre becas 100% financiadas. Explora, filtra y entra directo a la postulación oficial.</p>
 
-        <label class="search-box"><span>⌕</span><input id="searchInput" placeholder="Buscar país, universidad o beca…" /></label>
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Buscar país, universidad o beca…"></label>
         <div class="filter-stack">
           <label><span>Categoría</span><select id="categoryFilter"><option value="">Todas</option></select></label>
           <label><span>Modalidad</span><select id="modeFilter"><option value="">Todas</option></select></label>
@@ -35,17 +41,17 @@
         <button class="apply-filters" id="applyFilters">☷ Aplicar filtros</button>
         <button class="clear-filters" id="clearFilters">Limpiar filtros</button>
 
-        <div class="sidebar-stats">
-          <div><strong id="statVerified">0</strong><span>Becas verificadas</span></div>
-          <div><strong id="statCountries">0</strong><span>Países</span></div>
+        <div class="sidebar-stats" aria-live="polite">
+          <div><strong id="statVerified">—</strong><span>Becas verificadas</span></div>
+          <div><strong id="statCountries">—</strong><span>Países</span></div>
           <div><strong>100%</strong><span>Financiadas</span></div>
-          <div class="update-line">⚡ <span id="lastUpdated">Actualización diaria</span></div>
+          <div class="update-line">⚡ <span id="lastUpdated">Cargando datos…</span></div>
         </div>
         <blockquote>“Un mapa, miles de historias.<br>La tuya puede ser la próxima.”</blockquote>
       </aside>
 
       <section class="map-column">
-        <div class="map-toolbar">
+        <div class="map-toolbar" role="group" aria-label="Estado de becas">
           <button class="status-chip active" data-quick-status=""><i class="green"></i>Todas</button>
           <button class="status-chip" data-quick-status="open"><i class="green"></i>Abiertas</button>
           <button class="status-chip" data-quick-status="upcoming"><i class="purple"></i>Próximas</button>
@@ -53,41 +59,62 @@
         </div>
 
         <div class="map-stage" id="mapStage">
+          <div class="map-loading" id="mapLoading"><span></span><p>Construyendo mapa mundial…</p></div>
           <div class="map-world" id="mapWorld">
-            <div class="continent-glow glow-americas"></div><div class="continent-glow glow-europe"></div><div class="continent-glow glow-asia"></div><div class="continent-glow glow-africa"></div><div class="continent-glow glow-oceania"></div>
-            <img class="world-img" id="worldImage" src="https://raw.githubusercontent.com/melenaos/Menelabs.VectorAtlas/main/dist/world.svg" alt="Mapa mundial" />
-            <svg class="route-layer" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true"><path id="travelArc" d="M250 350 Q420 135 525 165"/><circle id="travelDot" cx="250" cy="350" r="4"/></svg>
+            <div class="region-glow glow-americas"></div><div class="region-glow glow-europe"></div><div class="region-glow glow-asia"></div><div class="region-glow glow-africa"></div><div class="region-glow glow-oceania"></div>
+            <svg id="worldSvg" class="world-svg" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" aria-label="Mapa mundial interactivo"></svg>
+            <svg id="routeSvg" class="route-layer" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></svg>
+            <div class="particles" id="particles" aria-hidden="true"></div>
             <div class="marker-layer" id="markerLayer"></div>
           </div>
-          <div class="map-tools"><button id="zoomIn">+</button><button id="zoomOut">−</button><button id="resetMap">◎</button></div>
-          <div class="map-attribution">Mapa: Natural Earth · VectorAtlas</div>
+          <div class="map-tools"><button id="zoomIn" aria-label="Acercar">+</button><button id="zoomOut" aria-label="Alejar">−</button><button id="resetMap" aria-label="Restablecer mapa">◎</button></div>
+          <div class="map-attribution">Natural Earth · world-atlas</div>
+          <div class="map-error" id="mapError" hidden>El mapa avanzado no pudo cargarse; los países y becas siguen disponibles.</div>
         </div>
 
-        <div class="map-footer-stats"><div><span>🎓</span><b id="footerVerified">0</b><small>becas verificadas</small></div><div><span>🌐</span><b id="footerCountries">0</b><small>países</small></div><div><span>👥</span><b>100%</b><small>financiadas</small></div><div><span>⚡</span><b>Diaria</b><small>actualización</small></div></div>
+        <div class="map-footer-stats">
+          <div><span>🎓</span><b id="footerVerified">—</b><small>Becas verificadas</small></div>
+          <div><span>🌐</span><b id="footerCountries">—</b><small>Países</small></div>
+          <div><span>👥</span><b>100%</b><small>Financiadas</small></div>
+          <div><span>⚡</span><b>Diaria</b><small>Actualización</small></div>
+        </div>
 
-        <section class="destinations" id="para-ti"><div class="section-line"><h2>Destinos disponibles</h2><span>Datos reales de la base</span></div><div class="destination-row" id="destinationRow"></div></section>
+        <section class="destinations" id="destinos">
+          <div class="section-line"><h2>Destinos populares</h2><span>Solo países con datos reales</span></div>
+          <div class="destination-row" id="destinationRow"></div>
+        </section>
       </section>
 
-      <aside class="country-panel" id="countryPanel">
-        <button id="closePanel" class="panel-close">×</button>
-        <div class="panel-empty" id="panelEmpty"><div class="empty-orb"></div><p>Toca un país iluminado para ver sus becas.</p></div>
+      <aside class="country-panel" id="countryPanel" aria-live="polite">
+        <button id="closePanel" class="panel-close" aria-label="Cerrar panel">×</button>
+        <div class="panel-empty" id="panelEmpty"><div class="empty-orb"></div><strong>Explora un destino</strong><p>Toca un país iluminado para descubrir sus oportunidades.</p></div>
         <div id="panelContent" class="panel-content" hidden>
           <div class="country-cover" id="countryCover"><div class="cover-shine"></div><div class="country-title"><span id="panelFlag">🌍</span><div><h2 id="panelCountry">País</h2><p id="panelCount">0 becas disponibles</p></div></div></div>
-          <div class="panel-tabs"><button class="active" data-panel-status="">Destacadas</button><button data-panel-status="open">Abiertas</button><button data-panel-status="closed">Históricas</button></div>
+          <div class="panel-tabs"><button class="active" data-panel-type="">Destacadas</button><button data-panel-type="master">Máster</button><button data-panel-type="doctorado">Doctorado</button><button data-panel-type="curso">Cursos</button></div>
           <div class="panel-list" id="panelList"></div>
-          <button class="panel-all" id="panelAll">Ver todas las becas →</button>
+          <button class="panel-all" id="panelAll">Ver todas las becas del país →</button>
         </div>
       </aside>
     </section>
 
-    <section class="catalog shell" id="becas"><div class="section-head"><div><span class="eyebrow">Catálogo</span><h2>Todas las becas verificadas</h2></div><p id="resultsCount">Cargando…</p></div><div class="grid" id="scholarshipGrid"></div></section>
+    <button class="mobile-filter-button" id="mobileFilters">☷ Filtros</button>
 
-    <section class="trust shell" id="criterio"><div><span class="eyebrow">La regla</span><h2>100% significa <span>100%.</span></h2><p>Solo entran oportunidades donde la fuente oficial confirma cobertura total.</p></div><div class="trust-grid"><article><b>01</b><strong>Fuente oficial</strong><p>Universidades, fundaciones y organismos responsables.</p></article><article><b>02</b><strong>Revisión diaria</strong><p>Vigencia, fechas y enlaces se vuelven a comprobar.</p></article><article><b>03</b><strong>Sin “hasta”</strong><p>No mezclamos descuentos parciales con becas completas.</p></article></div></section>
+    <section class="catalog" id="becas">
+      <div class="section-head"><div><span class="eyebrow">Catálogo</span><h2>Todas las becas verificadas</h2></div><p id="resultsCount">Cargando…</p></div>
+      <div class="grid" id="scholarshipGrid"><div class="skeleton-card"></div><div class="skeleton-card"></div></div>
+    </section>
+
+    <section class="trust" id="criterio"><div><span class="eyebrow">La regla</span><h2>100% significa <span>100%.</span></h2><p>Solo entran oportunidades donde la fuente oficial confirma cobertura total.</p></div><div class="trust-grid"><article><b>01</b><strong>Fuente oficial</strong><p>Universidades, fundaciones y organismos responsables.</p></article><article><b>02</b><strong>Revisión diaria</strong><p>Vigencia, fechas y enlaces se vuelven a comprobar.</p></article><article><b>03</b><strong>Sin “hasta”</strong><p>No mezclamos descuentos parciales con becas completas.</p></article></div></section>
   </main>
 
-  <footer class="shell"><strong>Becas100</strong><span>Confirma siempre requisitos y condiciones en la fuente oficial.</span></footer>
+  <footer><strong>Becas100</strong><span>Confirma siempre requisitos y condiciones en la fuente oficial.</span></footer>
 
-  <template id="cardTemplate"><article class="card"><div class="card-top"><span class="category"></span><button class="favorite">♡</button></div><div class="card-main"><h3></h3><p class="institution"></p><div class="meta"></div><p class="summary"></p></div><div class="coverage"></div><div class="card-bottom"><span class="status"></span><a class="apply" target="_blank" rel="noopener noreferrer">Postular <span>↗</span></a></div></article></template>
-  <script src="app.js?v=map3" defer></script>
+  <dialog id="profileDialog" class="profile-dialog"><form method="dialog"><button class="dialog-close" value="cancel">×</button><div class="eyebrow">Tu perfil</div><h2>Personaliza Becas100</h2><label>Nombre<input id="profileName" placeholder="Tu nombre"></label><label>País de origen<select id="profileCountry"><option value="Chile">Chile</option><option value="Otro">Otro</option></select></label><button id="saveProfile" value="default">Guardar perfil</button></form></dialog>
+
+  <template id="cardTemplate"><article class="card"><div class="card-top"><span class="category"></span><button class="favorite" aria-label="Guardar beca">♡</button></div><div class="card-main"><h3></h3><p class="institution"></p><div class="meta"></div><p class="summary"></p></div><div class="coverage"></div><div class="card-bottom"><span class="status"></span><a class="apply" target="_blank" rel="noopener noreferrer">Postular <span>↗</span></a></div></article></template>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script defer src="app.js?v=rebuild1"></script>
 </body>
 </html>
