@@ -1,0 +1,1 @@
+(()=>{const v=new URLSearchParams(location.search).get('v')||'admin1';if(!/^admin[1-5]$/.test(v))return;document.documentElement.dataset.variant=v;document.addEventListener('DOMContentLoaded',()=>{document.body.classList.add(`variant-${v}`);if(v!=='admin1')document.body.classList.add('variant-white');});})();
