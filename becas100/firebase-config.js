@@ -1,0 +1,1 @@
+window.BECAS100_FIREBASE_CONFIG={apiKey:"AIzaSyBMtjCVXKTePObIDZMx9IPOnzMpekJ7vs4",authDomain:"becas100-17f49.firebaseapp.com",projectId:"becas100-17f49",storageBucket:"becas100-17f49.firebasestorage.app",messagingSenderId:"851089201087",appId:"1:851089201087:web:dc0de6c225edd4073ef30a",measurementId:"G-0HKGH97T6Y"};
