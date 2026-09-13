@@ -37,7 +37,7 @@ nav{text-align:center}nav a{margin:0 16px;text-decoration:none;color:#10233f;fon
 <header class="top">
   <div class="brand"><div class="logo">B</div><div>Becas100<small>TUS SUEÑOS SIN LÍMITES</small></div></div>
   <nav><a href="#mapa">Explorar</a><a href="#mapa" class="active">Mapa</a><a href="#becas">Becas</a><a href="#destinos">Para ti</a><a href="#recursos">Recursos</a></nav>
-  <div class="tools"><input class="headsearch" placeholder="⌕  Buscar becas, país o universidad..."><button class="iconbtn">♡</button><button class="iconbtn">☼</button><button class="profile">Mi perfil →</button></div>
+  <div class="tools"><input class="headsearch" placeholder="⌕  Buscar becas, país o universidad..."><button class="iconbtn">♡</button><button class="iconbtn">☼</button><button class="profile">Ingresar</button></div>
 </header>
 <main class="page">
 <section class="hero">
@@ -133,5 +133,6 @@ fillOptions('country',DATA.map(x=>x.country));fillOptions('language',DATA.map(x=
 $('plus').onclick=()=>{zoom=Math.min(1.22,zoom+.08);$('mapCard').style.setProperty('--zoom',zoom)};$('minus').onclick=()=>{zoom=Math.max(1,zoom-.08)};$('reset').onclick=()=>{zoom=1};
 render();
 </script>
+<script src="auth-dashboard.js?v=1"></script>
 </body>
 </html>
