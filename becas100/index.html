@@ -3,52 +3,91 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="description" content="Becas100: becas con financiamiento 100% verificadas, actualizadas diariamente." />
   <meta name="theme-color" content="#050507" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <title>Becas100 · Becas 100% verificadas</title>
+  <meta name="description" content="Becas100: explora en un mapa becas con financiamiento 100% verificadas y actualizadas diariamente." />
+  <title>Becas100 · Mapa de becas 100%</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260912-1504" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="styles.css?v=map1" />
 </head>
 <body>
-  <div class="motion-bg" aria-hidden="true"><div class="glow glow-a"></div><div class="glow glow-b"></div><div class="glow glow-c"></div><div class="grid-lines"></div></div>
+  <div class="aurora aurora-a"></div><div class="aurora aurora-b"></div><div class="noise"></div>
   <header class="topbar shell">
     <a class="brand" href="#"><span class="brand-symbol">B</span><span>Becas100</span></a>
-    <nav><a href="#becas">Explorar</a><a href="#como-funciona">Criterio</a><a href="#fuentes">Fuentes</a></nav>
-    <a class="nav-button" href="#becas">Ver oportunidades <span>↘</span></a>
+    <nav><a href="#mapa">Mapa</a><a href="#becas">Becas</a><a href="#como-funciona">Criterio</a></nav>
+    <button class="saved-top" id="favoritesButton">♡ <span id="favoriteCount">0</span></button>
   </header>
+
   <main>
-    <section class="hero shell">
-      <div class="hero-copy">
-        <div class="hero-badge"><span></span> Base viva · actualización diaria</div>
-        <h1>Becas <span class="gradient-word">100%</span><br>sin letra chica.</h1>
-        <p class="hero-lead">Encontramos y verificamos oportunidades que realmente cubren el total. Explora, filtra y entra directo a la postulación oficial.</p>
-        <div class="hero-search-row">
-          <div class="hero-search"><span class="search-icon">⌕</span><input id="searchInput" type="search" placeholder="IA, diseño, España, online…" /></div>
-          <button class="favorite-toggle" id="favoritesButton">♡ Guardadas <span id="favoriteCount">0</span></button>
+    <section class="intro shell">
+      <div class="intro-copy">
+        <div class="live-pill"><span></span> Base viva · actualización diaria</div>
+        <h1>¿Hasta dónde te puede llevar una <em>beca?</em></h1>
+        <p>Explora el mundo, descubre oportunidades 100% financiadas y entra directo a la postulación oficial.</p>
+      </div>
+      <div class="intro-stats">
+        <div><strong id="statVerified">0</strong><span>verificadas</span></div>
+        <div><strong id="statOpen">0</strong><span>abiertas</span></div>
+        <div><strong id="statCountries">0</strong><span>países</span></div>
+        <small id="lastUpdated">Actualizando…</small>
+      </div>
+    </section>
+
+    <section class="map-shell" id="mapa">
+      <aside class="map-controls">
+        <span class="eyebrow">Explora el mundo</span>
+        <h2>Oportunidades<br>sin fronteras.</h2>
+        <p>Elige un país o filtra por tipo de beca. El mapa se actualiza en tiempo real.</p>
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Buscar país o beca…" /></label>
+        <div class="filter-row">
+          <select id="categoryFilter"><option value="">Todas las categorías</option></select>
+          <select id="modeFilter"><option value="">Modalidad</option></select>
+          <select id="levelFilter"><option value="">Nivel</option></select>
+          <select id="statusFilter"><option value="">Estado</option><option value="open">Abiertas</option><option value="upcoming">Próximamente</option><option value="closed">Cerradas</option></select>
+          <select id="countryFilter"><option value="">Todos los países</option></select>
         </div>
-        <div class="hero-metrics"><div><strong id="statVerified">0</strong><span>verificadas</span></div><div><strong id="statOpen">0</strong><span>abiertas</span></div><div><strong id="statOnline">0</strong><span>online</span></div><small id="lastUpdated">Actualizando…</small></div>
+        <button class="reset-btn" id="clearFilters">Limpiar filtros</button>
+      </aside>
+
+      <div class="map-stage">
+        <div id="worldMap" class="world-map" aria-label="Mapa interactivo de becas"></div>
+        <div class="map-legend"><span><i class="dot open"></i> abiertas</span><span><i class="dot closed"></i> históricas / cerradas</span></div>
       </div>
-      <div class="motion-stage" aria-hidden="true">
-        <div class="orb-wrap"><div class="orb-ring ring-one"></div><div class="orb-ring ring-two"></div><div class="orb"></div><div class="orb-core">100%</div></div>
-        <div class="float-card float-one"><span>LIVE</span><strong>Fuentes oficiales</strong></div>
-        <div class="float-card float-two"><span>SCAN</span><strong>Nuevas becas</strong></div>
-        <div class="float-card float-three"><span>CHECK</span><strong>Cobertura total</strong></div>
-      </div>
+
+      <aside class="country-panel" id="countryPanel" aria-live="polite">
+        <button class="panel-close" id="closePanel" aria-label="Cerrar">×</button>
+        <div class="panel-empty" id="panelEmpty"><span class="panel-glow"></span><p>Toca un país iluminado para ver sus becas.</p></div>
+        <div class="panel-content" id="panelContent" hidden>
+          <div class="country-head"><span class="country-flag" id="panelFlag">🌍</span><div><h3 id="panelCountry">País</h3><p id="panelCount">0 becas</p></div></div>
+          <div class="panel-tabs"><button class="active" data-panel-status="">Todas</button><button data-panel-status="open">Abiertas</button><button data-panel-status="closed">Históricas</button></div>
+          <div class="panel-list" id="panelList"></div>
+        </div>
+      </aside>
     </section>
-    <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>100% COBERTURA</span><i>✦</i><span>FUENTES OFICIALES</span><i>✦</i><span>ACTUALIZACIÓN DIARIA</span><i>✦</i><span>POSTULACIÓN DIRECTA</span><i>✦</i><span>100% COBERTURA</span><i>✦</i><span>FUENTES OFICIALES</span><i>✦</i></div></div>
-    <section class="explore shell" id="becas">
-      <div class="section-head"><div><span class="eyebrow">Oportunidades verificadas</span><h2>Encuentra tu próxima oportunidad.</h2></div><p id="resultsCount">Cargando becas…</p></div>
-      <div class="filters-panel"><select id="categoryFilter"><option value="">Categorías</option></select><select id="countryFilter"><option value="">País</option></select><select id="modeFilter"><option value="">Modalidad</option></select><select id="levelFilter"><option value="">Nivel</option></select><select id="statusFilter"><option value="">Estado</option><option value="open">Abiertas</option><option value="upcoming">Próximamente</option><option value="closed">Cerradas</option></select><button class="clear" id="clearFilters">Limpiar</button></div>
-      <section class="grid" id="scholarshipGrid" aria-live="polite"></section>
+
+    <section class="destinations shell">
+      <div class="section-head"><div><span class="eyebrow">Destinos</span><h2>Países con oportunidades</h2></div><p>Se actualizan automáticamente con la base verificada.</p></div>
+      <div class="destination-row" id="destinationRow"></div>
     </section>
-    <section class="trust shell" id="como-funciona"><div class="trust-copy"><span class="eyebrow">El filtro que importa</span><h2>100% significa <span>100%.</span></h2><p>Si la fuente oficial no confirma cobertura total, no entra al catálogo verificado.</p></div><div class="trust-grid"><article><b>01</b><strong>Fuente oficial</strong><p>Universidades, fundaciones y organismos responsables.</p></article><article><b>02</b><strong>Revisión diaria</strong><p>Vigencia, fechas y links se actualizan constantemente.</p></article><article><b>03</b><strong>Sin “hasta”</strong><p>No mezclamos descuentos parciales con becas completas.</p></article></div></section>
-    <section class="sources shell" id="fuentes"><div class="section-head slim"><div><span class="eyebrow">Radar</span><h2>Fuentes monitorizadas</h2></div></div><div id="sourceChips" class="chips"></div></section>
+
+    <section class="catalog shell" id="becas">
+      <div class="section-head"><div><span class="eyebrow">Catálogo</span><h2>Todas las becas verificadas</h2></div><p id="resultsCount">Cargando…</p></div>
+      <section class="grid" id="scholarshipGrid"></section>
+    </section>
+
+    <section class="trust shell" id="como-funciona">
+      <div><span class="eyebrow">La regla</span><h2>100% significa <span>100%.</span></h2><p>Si la fuente oficial no confirma cobertura total, no entra al catálogo verificado.</p></div>
+      <div class="trust-grid"><article><b>01</b><strong>Fuente oficial</strong><p>Universidades, fundaciones y organismos responsables.</p></article><article><b>02</b><strong>Revisión diaria</strong><p>Vigencia, fechas y links se vuelven a comprobar.</p></article><article><b>03</b><strong>Sin “hasta”</strong><p>No mezclamos descuentos parciales con becas completas.</p></article></div>
+    </section>
   </main>
-  <footer class="shell"><div><strong>Becas100</strong><span>Un radar para oportunidades reales.</span></div><span>Verifica siempre las condiciones finales en la fuente oficial.</span></footer>
-  <template id="cardTemplate"><article class="card"><div class="card-top"><span class="category"></span><button class="favorite" aria-label="Guardar en favoritas">♡</button></div><div class="card-main"><h3></h3><p class="institution"></p><div class="meta"></div><p class="summary"></p></div><div class="coverage"></div><div class="card-bottom"><span class="status"></span><a class="apply" target="_blank" rel="noopener noreferrer">Postular <span>↗</span></a></div></article></template>
-  <script src="app.js?v=20260912-1504" defer></script>
+
+  <footer class="shell"><div><strong>Becas100</strong><span>Explora oportunidades reales.</span></div><span>Confirma siempre las condiciones finales en la fuente oficial.</span></footer>
+
+  <template id="cardTemplate"><article class="card"><div class="card-top"><span class="category"></span><button class="favorite">♡</button></div><div class="card-main"><h3></h3><p class="institution"></p><div class="meta"></div><p class="summary"></p></div><div class="coverage"></div><div class="card-bottom"><span class="status"></span><a class="apply" target="_blank" rel="noopener noreferrer">Postular <span>↗</span></a></div></article></template>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="app.js?v=map1" defer></script>
 </body>
 </html>
