@@ -6,7 +6,7 @@
       "sourceName": "OEI",
       "url": "https://oei.int/becas/becas-iifac-cursos-diplomados-2026/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:48:41Z"
+      "detectedAt": "2026-09-14T15:54:26Z"
     },
     {
       "id": "convocatorias",
@@ -14,7 +14,7 @@
       "sourceName": "Skillnest",
       "url": "https://www.skillnest.com/convocatorias",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:48:49Z"
+      "detectedAt": "2026-09-14T15:54:35Z"
     },
     {
       "id": "matildex-ia",
@@ -22,7 +22,7 @@
       "sourceName": "Skillnest",
       "url": "https://www.matildex.com",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:48:51Z"
+      "detectedAt": "2026-09-14T15:54:38Z"
     },
     {
       "id": "becas",
@@ -30,7 +30,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/becas",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:48:53Z"
+      "detectedAt": "2026-09-14T15:54:41Z"
     },
     {
       "id": "impacto-regional-2026-bhp-foundation-fundaci-n-pa-s-digital-conecta-nort",
@@ -38,7 +38,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://conectanorte.cl/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:48:58Z"
+      "detectedAt": "2026-09-14T15:54:47Z"
     },
     {
       "id": "formaci-n-in-house-2026-natura-natura-automatizaci-n-e-ia-con-n8n-google",
@@ -46,7 +46,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/proyectos",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:48:59Z"
+      "detectedAt": "2026-09-14T15:54:47Z"
     },
     {
       "id": "gobiernos-locales-latam-2024-pinn-costa-rica-mitic-paraguay-habilidades-",
@@ -54,7 +54,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://www.abc.com.py/nacionales/2024/05/21/atencion-mitic-ofrece-400-becas-para-cursos-intensivos-en-competencias-digitales/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:49:01Z"
+      "detectedAt": "2026-09-14T15:54:49Z"
     },
     {
       "id": "abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-e",
@@ -62,7 +62,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-especialidad-programacion-blueprints-intermedio/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:49:07Z"
+      "detectedAt": "2026-09-14T15:54:55Z"
     },
     {
       "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine",
@@ -70,7 +70,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:49:10Z"
+      "detectedAt": "2026-09-14T15:54:55Z"
     },
     {
       "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista",
@@ -78,7 +78,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:49:12Z"
+      "detectedAt": "2026-09-14T15:54:56Z"
     },
     {
       "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en",
@@ -86,9 +86,9 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en-animacion-o-videojuegos/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-13T13:49:13Z"
+      "detectedAt": "2026-09-14T15:54:57Z"
     }
   ],
-  "generatedAt": "2026-09-13T13:49:13Z",
+  "generatedAt": "2026-09-14T15:54:57Z",
   "note": "Detección automática: no se publica como verificada hasta confirmar cobertura 100% en fuente oficial."
 }
