@@ -1,0 +1,39 @@
+name: Pin selected South Korea image
+on:
+  push:
+    paths:
+      - '.github/workflows/pin-korea-selected-image.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download exact selected image and patch site
+        run: |
+          set -euo pipefail
+          mkdir -p becas100/stable/assets
+          curl -fL --retry 3 --retry-delay 2 \
+            'https://images.openai.com/static-rsc-4/FwI_ne83DvGm891dWySDmxUCV1G9VGVkw7L8uEimxphXJb58nwbGdbPrrlVqx-QTiOMtRsKUa4BF6syvx7mmmnvdzxPMcDbMWAW4WwGtfm8onvGQ1o0vQVFKZ64UTqq20cAxB97m5ZNSIgdaEqmGSLwl7rGvTz2VMp_Velr3YOly5Uk1oCps4WWGzdRdKTEq?purpose=fullsize' \
+            -o becas100/stable/assets/korea-selected.jpg
+          test -s becas100/stable/assets/korea-selected.jpg
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('becas100/stable/index.html')
+          s=p.read_text()
+          import re
+          pattern=r"('Corea del Sur':\{flag:'🇰🇷',x:[^\n]+?img:')[^']+('(?:,fallback:'[^']+')?\},)"
+          ns,n=re.subn(pattern, r"\1assets/korea-selected.jpg?v=1\2", s)
+          if n != 1:
+              raise SystemExit(f'Expected 1 Korea META replacement, got {n}')
+          p.write_text(ns)
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add becas100/stable/index.html becas100/stable/assets/korea-selected.jpg
+          git diff --cached --quiet || git commit -m 'Use exact selected South Korea image locally'
+          git push
