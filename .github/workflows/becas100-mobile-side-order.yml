@@ -1,0 +1,31 @@
+name: Becas100 mobile side order
+on:
+  push:
+    paths:
+      - '.github/workflows/becas100-mobile-side-order.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Load mobile order stylesheet
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('becas100/stable/index.html')
+          s=p.read_text()
+          tag='<link rel="stylesheet" href="mobile-side-order.css?v=1">'
+          if tag not in s:
+              s=s.replace('</head>', tag+'\n</head>')
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add becas100/stable/index.html
+          git diff --cached --quiet || git commit -m "Load mobile country card ordering fix"
+          git push
