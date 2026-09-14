@@ -1,0 +1,9 @@
+/* Mobile ordering: selected-country detail belongs directly below the map. */
+@media (max-width:980px){
+  .workspace{display:flex!important;flex-direction:column!important;gap:18px!important}
+  .workspace>div{display:contents!important}
+  .chips{order:1!important;width:100%}
+  .mapCard{order:2!important;width:100%}
+  .side{order:3!important;width:100%;position:static!important;top:auto!important;margin:0!important}
+  .destinations{order:4!important;width:100%;margin-top:0!important}
+}
