@@ -1,0 +1,30 @@
+name: Becas100 mobile cache v7
+on:
+  push:
+    paths:
+      - '.github/workflows/becas100-mobile-cache-v7.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump mobile assets
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('becas100/stable/index.html')
+          s=p.read_text()
+          s=s.replace('catalog-status.js?v=6','catalog-status.js?v=7')
+          s=s.replace('assets/chile-latest.jpg?v=6','assets/chile-latest.jpg?v=7')
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "Cristian"
+          git config user.email "cristian85alegria@gmail.com"
+          git add becas100/stable/index.html
+          git diff --cached --quiet || git commit -m "Refresh Becas100 mobile fixes v7"
+          git push
