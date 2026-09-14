@@ -1,0 +1,32 @@
+name: Update Chile Santiago image
+on:
+  push:
+    paths:
+      - '.github/workflows/update-chile-santiago-image.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace Chile image
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('becas100/stable/index.html')
+          s=p.read_text()
+          old="'Chile':{flag:'🇨🇱',x:23,y:69,c:'#1688ff',img:'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=900&q=82'}"
+          new="'Chile':{flag:'🇨🇱',x:23,y:69,c:'#1688ff',img:'https://upload.wikimedia.org/wikipedia/commons/d/d7/Skyline_of_Santiago%2C_Chile.jpg'}"
+          if old not in s:
+              raise SystemExit('Chile image source not found')
+          p.write_text(s.replace(old,new,1))
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add becas100/stable/index.html
+          git diff --cached --quiet || git commit -m "Use Santiago Costanera Center image for Chile"
+          git push
