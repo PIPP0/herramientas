@@ -1,0 +1,37 @@
+name: Refresh Becas100 mobile v6
+on:
+  push:
+    paths:
+      - '.github/workflows/refresh-becas100-mobile-v6.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh mobile assets and Chile image
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('becas100/stable/index.html')
+          s=p.read_text()
+          old='<script src="catalog-status.js?v=1"></script>'
+          if old in s:
+              s=s.replace(old,'<script src="catalog-status.js?v=6"></script>',1)
+          else:
+              import re
+              s,n=re.subn(r'<script src="catalog-status\.js\?v=\d+"></script>','<script src="catalog-status.js?v=6"></script>',s,count=1)
+              if n!=1:
+                  raise SystemExit('catalog-status script tag not found')
+          old_img='https://upload.wikimedia.org/wikipedia/commons/d/d7/Skyline_of_Santiago%2C_Chile.jpg'
+          s=s.replace(old_img,'assets/chile-latest.jpg?v=6')
+          p.write_text(s)
+          PY
+          git config user.name "Cristian"
+          git config user.email "cristian85alegria@gmail.com"
+          git add becas100/stable/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Refresh Becas100 mobile and Chile image cache"
+          git push
