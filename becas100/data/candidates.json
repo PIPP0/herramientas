@@ -6,7 +6,7 @@
       "sourceName": "OEI",
       "url": "https://oei.int/becas/becas-iifac-cursos-diplomados-2026/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:26Z"
+      "detectedAt": "2026-09-15T14:20:29Z"
     },
     {
       "id": "convocatorias",
@@ -14,7 +14,7 @@
       "sourceName": "Skillnest",
       "url": "https://www.skillnest.com/convocatorias",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:35Z"
+      "detectedAt": "2026-09-15T14:20:41Z"
     },
     {
       "id": "matildex-ia",
@@ -22,7 +22,7 @@
       "sourceName": "Skillnest",
       "url": "https://www.matildex.com",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:38Z"
+      "detectedAt": "2026-09-15T14:20:43Z"
     },
     {
       "id": "becas",
@@ -30,15 +30,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/becas",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:41Z"
-    },
-    {
-      "id": "impacto-regional-2026-bhp-foundation-fundaci-n-pa-s-digital-conecta-nort",
-      "title": "Impacto regional 2026 BHP Foundation · Fundación País Digital Conecta Norte  ·  600 becas para jóvenes de Antofagasta Leer nota →",
-      "sourceName": "Desafío Latam",
-      "url": "https://conectanorte.cl/",
-      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:47Z"
+      "detectedAt": "2026-09-15T14:20:46Z"
     },
     {
       "id": "formaci-n-in-house-2026-natura-natura-automatizaci-n-e-ia-con-n8n-google",
@@ -46,7 +38,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/proyectos",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:47Z"
+      "detectedAt": "2026-09-15T14:20:52Z"
     },
     {
       "id": "gobiernos-locales-latam-2024-pinn-costa-rica-mitic-paraguay-habilidades-",
@@ -54,7 +46,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://www.abc.com.py/nacionales/2024/05/21/atencion-mitic-ofrece-400-becas-para-cursos-intensivos-en-competencias-digitales/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:49Z"
+      "detectedAt": "2026-09-15T14:20:53Z"
     },
     {
       "id": "abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-e",
@@ -62,7 +54,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-especialidad-programacion-blueprints-intermedio/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:55Z"
+      "detectedAt": "2026-09-15T14:20:55Z"
     },
     {
       "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine",
@@ -70,7 +62,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:55Z"
+      "detectedAt": "2026-09-15T14:20:56Z"
     },
     {
       "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista",
@@ -78,7 +70,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:56Z"
+      "detectedAt": "2026-09-15T14:20:57Z"
     },
     {
       "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en",
@@ -86,9 +78,9 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en-animacion-o-videojuegos/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-09-14T15:54:57Z"
+      "detectedAt": "2026-09-15T14:20:58Z"
     }
   ],
-  "generatedAt": "2026-09-14T15:54:57Z",
+  "generatedAt": "2026-09-15T14:20:58Z",
   "note": "Detección automática: no se publica como verificada hasta confirmar cobertura 100% en fuente oficial."
 }
