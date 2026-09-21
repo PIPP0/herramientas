@@ -14,12 +14,12 @@
       "eligibleChile": true,
       "eligibleLatam": true,
       "eligibilityLabel": "Chile / Latinoamérica",
-      "status": "open",
+      "status": "closed",
       "deadline": "2026-09-20",
       "summary": "Programa intensivo de IA generativa y construcción de soluciones con herramientas técnicas, orientado a talento en Chile.",
       "url": "https://root-ia.skillnest.com/",
       "sourceName": "Skillnest",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "oei-unir-iag-educacion-2026",
@@ -40,7 +40,7 @@
       "summary": "Formación online de 150 horas y 6 ECTS en IA generativa aplicada al contexto educativo.",
       "url": "https://oei.int/becas/500-becas-oei-unir-para-cursos-especializados-dirigidas-a-docentes/",
       "sourceName": "OEI",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "fc-bbva-data-ai-2026",
@@ -61,7 +61,7 @@
       "summary": "Beca completa para estudios de ciencia de datos e IA en Madrid, dirigida a profesionales de Latinoamérica.",
       "url": "https://gestion.fundacioncarolina.es/programas/6411",
       "sourceName": "Fundación Carolina",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "fc-bbva-deusto-sistemas-inteligentes-2026",
@@ -82,7 +82,7 @@
       "summary": "Máster oficial en sistemas inteligentes con beca integral para profesionales iberoamericanos.",
       "url": "https://gestion.fundacioncarolina.es/programas/6503",
       "sourceName": "Fundación Carolina",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "banco-chile-desafio-latam-ia-2026",
@@ -103,7 +103,7 @@
       "summary": "Formación e-learning en transformación digital, automatización e inteligencia artificial.",
       "url": "https://talentotp.desafiolatam.cl/",
       "sourceName": "Desafío Latam",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "chevening-chile-2027-2028",
@@ -124,7 +124,7 @@
       "summary": "Beca completa del Gobierno británico para másteres de un año. Chile cuenta con convocatoria propia y otros países latinoamericanos participan mediante sus convocatorias nacionales.",
       "url": "https://www.chevening.org/scholarship/chile/",
       "sourceName": "Chevening",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "mext-japon-chile",
@@ -145,7 +145,7 @@
       "summary": "El Gobierno de Japón ofrece anualmente programas MEXT para chilenos y mantiene convocatorias equivalentes a través de sus embajadas en Latinoamérica.",
       "url": "https://www.cl.emb-japan.go.jp/itpr_es/becas.html",
       "sourceName": "Embajada de Japón en Chile",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "gks-korea-graduate-2026",
@@ -166,7 +166,7 @@
       "summary": "Beca del Gobierno coreano para estudiantes internacionales de posgrado, con convocatoria oficial publicada por la Embajada de Corea en Chile.",
       "url": "https://overseas.mofa.go.kr/cl-es/brd/m_6575/view.do?seq=761875",
       "sourceName": "Embajada de Corea en Chile",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "china-government-scholarship-chile-2026",
@@ -187,7 +187,7 @@
       "summary": "Convocatoria bilateral del Gobierno chino para ciudadanos chilenos, con cupos de pregrado, magíster, doctorado y scholar programs.",
       "url": "https://cl.china-embassy.gov.cn/esp/fzxz/202510/t20251028_11742685.htm",
       "sourceName": "Embajada de China en Chile",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "turkiye-scholarships-2026",
@@ -208,7 +208,7 @@
       "summary": "Programa gubernamental abierto a estudiantes internacionales de todos los países para pregrado, máster y doctorado.",
       "url": "https://www.turkiyeburslari.gov.tr/announcements/turkiye-scholarships-2026-applications-121",
       "sourceName": "Türkiye Scholarships",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     },
     {
       "id": "singa-singapore",
@@ -229,7 +229,7 @@
       "summary": "Doctorado financiado por A*STAR para estudiantes internacionales, con proyectos en ciencia, ingeniería, computación, datos e inteligencia artificial.",
       "url": "https://www.a-star.edu.sg/qinc/scholarship",
       "sourceName": "A*STAR",
-      "lastChecked": "2026-09-20"
+      "lastChecked": "2026-09-21"
     }
   ]
 }
