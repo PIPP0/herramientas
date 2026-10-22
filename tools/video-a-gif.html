@@ -284,6 +284,12 @@ async function handleFile(file){
 
   showTrimForVideo();
   preview.src = url;
+  // Si el navegador no puede reproducir el video (formato o códec no soportado,
+  // p. ej. HEVC en algunos navegadores) antes la herramienta se quedaba en el
+  // paso 1 sin decir nada.
+  preview.onerror = () => {
+    showToast('Tu navegador no puede reproducir este video (formato o códec no soportado). Prueba con otro navegador, como Chrome o Safari.');
+  };
   preview.onloadedmetadata = () => {
     videoDuration = preview.duration || 0;
     startRange.min = 0;
@@ -349,9 +355,10 @@ async function ensureFFmpeg(){
   const baseURL = '../vendor/core';
   ffmpeg = new FFmpeg();
   ffmpeg.on('progress', ({ progress }) => {
+    if (!isFinite(progress)) return;
     const pct = Math.min(100, Math.max(0, Math.round(progress * 100)));
     progressFill.style.width = pct + '%';
-    progressLabel.innerHTML = '<span class="spin">⚙️</span> Convirtiendo… ' + pct + '%';
+    progressLabel.innerHTML = '<span class="spin">⚙️</span> Armando el GIF… ' + pct + '%';
   });
   await ffmpeg.load({
     coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
@@ -359,6 +366,88 @@ async function ensureFFmpeg(){
     classWorkerURL: new URL('../vendor/ffmpeg/worker.js', document.baseURI).href,
   });
   ffmpegReady = true;
+}
+
+// ffmpeg.exec NO lanza excepción cuando falla: devuelve un código distinto
+// de 0 (error o timeout) y deja el archivo de salida vacío. Sin revisar ese
+// código, la herramienta entregaba un GIF de 0 bytes como si todo hubiera
+// salido bien. Tras un fallo fatal ("Aborted()") el worker queda inservible,
+// así que se descarta para que la siguiente conversión cargue uno nuevo.
+async function runFFmpeg(args){
+  const code = await ffmpeg.exec(args);
+  if (code !== 0){
+    try { ffmpeg.terminate(); } catch (_) {}
+    ffmpegReady = false;
+    throw new Error('ffmpeg terminó con error (código ' + code + ')');
+  }
+}
+
+// Borra los fotogramas de una conversión anterior: si no, una conversión
+// con menos fotogramas leería también los sobrantes de la anterior.
+async function clearFrames(){
+  try {
+    const entries = await ffmpeg.listDir('/');
+    for (const e of entries){
+      if (!e.isDir && /^frame_\d+\.(png|jpg)$/.test(e.name)) await ffmpeg.deleteFile(e.name);
+    }
+  } catch (_) {}
+}
+
+function seekTo(video, t){
+  return new Promise((resolve, reject) => {
+    // Si el video ya está justo en ese instante (p. ej. el primer fotograma de
+    // un recorte que empieza en 0:00), el navegador no hace ningún salto ni
+    // dispara 'seeked', y ese fotograma puede no estar pintado todavía: salía
+    // NEGRO. Se fuerza un salto mínimo (2 ms, menos que un fotograma) para que
+    // lo decodifique de verdad.
+    let target = t;
+    if (Math.abs(video.currentTime - t) < 0.0005){
+      target = (t + 0.002 < video.duration) ? t + 0.002 : Math.max(0, t - 0.002);
+    }
+    const timer = setTimeout(() => {
+      video.removeEventListener('seeked', onSeeked);
+      reject(new Error('El navegador tardó demasiado en leer un fotograma del video.'));
+    }, 20000);
+    function onSeeked(){ clearTimeout(timer); resolve(); }
+    video.addEventListener('seeked', onSeeked, { once: true });
+    video.currentTime = target;
+  });
+}
+
+// Alternativa a que ffmpeg decodifique el video: se decodifica con el propio
+// navegador (el mismo <video> de la vista previa, que usa aceleración por
+// hardware y soporta HEVC/H.265, el formato de las grabaciones de pantalla
+// de iPhone) y cada fotograma se dibuja ya reducido al ancho final en un
+// canvas. ffmpeg solo arma el GIF a partir de esas imágenes chicas. Decodificar
+// HEVC de 1206x2622 en ffmpeg.wasm (por software) es tan lento y pesado que
+// terminaba fallando y entregando un archivo vacío.
+async function captureVideoFramesToFFmpeg(start, end, fps, width){
+  const vw = preview.videoWidth, vh = preview.videoHeight;
+  const outW = Math.max(2, Math.round(width / 2) * 2);
+  const outH = Math.max(2, Math.round((outW * vh / vw) / 2) * 2);
+  const canvas = document.createElement('canvas');
+  canvas.width = outW;
+  canvas.height = outH;
+  const ctx = canvas.getContext('2d', { alpha: false });
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+
+  preview.pause();
+  await clearFrames();
+  const total = Math.max(1, Math.floor((end - start) * fps));
+  for (let n = 0; n < total; n++){
+    const t = Math.min(Math.max(0, end - 0.001), start + n / fps);
+    await seekTo(preview, t);
+    ctx.drawImage(preview, 0, 0, outW, outH);
+    const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.95));
+    const name = 'frame_' + String(n).padStart(4, '0') + '.jpg';
+    await ffmpeg.writeFile(name, new Uint8Array(await blob.arrayBuffer()));
+    const pct = Math.round(((n + 1) / total) * 100);
+    progressFill.style.width = pct + '%';
+    progressLabel.innerHTML = '<span class="spin">🎞️</span> Capturando fotogramas… ' + (n + 1) + ' de ' + total;
+  }
+  preview.currentTime = start;
+  return total;
 }
 
 function burstConfetti(){
@@ -439,6 +528,74 @@ async function writeWebpFramesToFFmpeg(start, end){
   return srcFps;
 }
 
+// Cómo se decodifica el video:
+//  - Lo habitual (H.264, WebM…) va directo a ffmpeg, que es rápido y ya estaba
+//    probado.
+//  - HEVC/H.265 (el formato de las grabaciones de pantalla de iPhone), 4K o
+//    archivos muy pesados se decodifican con el navegador: ffmpeg.wasm los
+//    decodifica por software, es lentísimo y se queda sin memoria.
+//  - Si ffmpeg falla igual, se reintenta con el navegador (ver más abajo).
+const BROWSER_DECODE_MIN_PIXELS = 2300000; // un poco más que 1080p (2,07 MP)
+const BROWSER_DECODE_MIN_BYTES = 150 * 1024 * 1024;
+
+// Busca la caja "hvcC" (configuración de HEVC) en el inicio y el final del
+// archivo, que es donde un MP4/MOV guarda su índice (moov).
+async function looksLikeHevc(file){
+  const CHUNK = 4 * 1024 * 1024;
+  const parts = [file.slice(0, CHUNK)];
+  if (file.size > CHUNK) parts.push(file.slice(Math.max(CHUNK, file.size - CHUNK)));
+  for (const p of parts){
+    const bytes = new Uint8Array(await p.arrayBuffer());
+    for (let i = 0; i < bytes.length - 3; i++){
+      if (bytes[i] === 0x68 && bytes[i + 1] === 0x76 && bytes[i + 2] === 0x63 && bytes[i + 3] === 0x43) return true;
+    }
+  }
+  return false;
+}
+
+async function preferBrowserDecode(){
+  if (currentIsWebp || !preview.videoWidth) return false;
+  if (preview.videoWidth * preview.videoHeight > BROWSER_DECODE_MIN_PIXELS) return true;
+  if (currentFile.size > BROWSER_DECODE_MIN_BYTES) return true;
+  return looksLikeHevc(currentFile);
+}
+
+async function gifViaBrowserDecode(start, end, fps, width){
+  await captureVideoFramesToFFmpeg(start, end, fps, width);
+  progressFill.style.width = '0%';
+  progressLabel.innerHTML = '<span class="spin">⚙️</span> Armando el GIF…';
+  // Dos pasadas: primero la paleta de colores y después se aplica. Así ffmpeg
+  // nunca tiene que guardar todos los fotogramas en memoria a la vez.
+  await runFFmpeg([
+    '-framerate', String(fps),
+    '-i', 'frame_%04d.jpg',
+    '-vf', 'palettegen=stats_mode=diff',
+    '-frames:v', '1',
+    'palette.png'
+  ]);
+  await runFFmpeg([
+    '-framerate', String(fps),
+    '-i', 'frame_%04d.jpg',
+    '-i', 'palette.png',
+    '-lavfi', 'paletteuse=dither=bayer',
+    '-loop', '0',
+    'output.gif'
+  ]);
+}
+
+async function gifViaFFmpegDirect(start, dur, filter){
+  const inputName = 'input' + (currentFile.name.match(/\.[a-zA-Z0-9]+$/)?.[0] || '.mp4');
+  await ffmpeg.writeFile(inputName, await fetchFile(currentFile));
+  await runFFmpeg([
+    '-ss', String(start),
+    '-t', String(dur),
+    '-i', inputName,
+    '-vf', filter,
+    '-loop', '0',
+    'output.gif'
+  ]);
+}
+
 convertBtn.addEventListener('click', async () => {
   if (!currentFile) return;
   resultCard.classList.remove('show');
@@ -461,29 +618,35 @@ convertBtn.addEventListener('click', async () => {
     const filter = `fps=${fps},scale=${width}:-1:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=diff[p];[s1][p]paletteuse=dither=bayer`;
 
     if (currentIsWebp){
+      await clearFrames();
       const srcFps = await writeWebpFramesToFFmpeg(start, end);
-      await ffmpeg.exec([
+      await runFFmpeg([
         '-framerate', String(srcFps),
         '-i', 'frame_%04d.png',
         '-vf', filter,
         '-loop', '0',
         'output.gif'
       ]);
+    } else if (await preferBrowserDecode()){
+      await gifViaBrowserDecode(start, end, fps, width);
     } else {
-      const inputName = 'input' + (currentFile.name.match(/\.[a-zA-Z0-9]+$/)?.[0] || '.mp4');
-      await ffmpeg.writeFile(inputName, await fetchFile(currentFile));
-
-      await ffmpeg.exec([
-        '-ss', String(start),
-        '-t', String(dur),
-        '-i', inputName,
-        '-vf', filter,
-        '-loop', '0',
-        'output.gif'
-      ]);
+      try {
+        await gifViaFFmpegDirect(start, dur, filter);
+      } catch (err) {
+        // Si ffmpeg no logra decodificar este video, se reintenta
+        // decodificándolo con el navegador (si es capaz de reproducirlo).
+        if (!preview.videoWidth) throw err;
+        console.warn('ffmpeg no pudo decodificar el video, se reintenta con el navegador:', err);
+        await ensureFFmpeg();
+        await gifViaBrowserDecode(start, end, fps, width);
+      }
     }
 
     const data = await ffmpeg.readFile('output.gif');
+    if (!data || data.length === 0){
+      throw new Error('El GIF resultante salió vacío');
+    }
+    await clearFrames();
     const blob = new Blob([data.buffer], { type: 'image/gif' });
     const url = URL.createObjectURL(blob);
 
@@ -499,7 +662,8 @@ convertBtn.addEventListener('click', async () => {
     burstConfetti();
   } catch (err) {
     console.error(err);
-    showToast('Ocurrió un error al convertir el video: ' + (err?.message || err));
+    progressLabel.textContent = 'No se pudo convertir';
+    showToast('No se pudo generar el GIF (' + (err?.message || err) + '). Prueba con un recorte más corto, menos FPS o un ancho menor.');
   } finally {
     convertBtn.disabled = false;
     setTimeout(() => progressWrap.classList.remove('show'), 800);
