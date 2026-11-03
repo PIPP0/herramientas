@@ -6,7 +6,7 @@
       "sourceName": "OEI",
       "url": "https://oei.int/becas/becas-iifac-cursos-diplomados-2026/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-02T19:29:45Z"
+      "detectedAt": "2026-11-03T17:03:27Z"
     },
     {
       "id": "matildex-ia",
@@ -14,7 +14,7 @@
       "sourceName": "Skillnest",
       "url": "https://www.matildex.com",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-02T19:29:55Z"
+      "detectedAt": "2026-11-03T17:03:35Z"
     },
     {
       "id": "becas",
@@ -22,7 +22,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/becas",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-02T19:29:57Z"
+      "detectedAt": "2026-11-03T17:03:38Z"
     },
     {
       "id": "formaci-n-in-house-2026-natura-natura-automatizaci-n-e-ia-con-n8n-google",
@@ -30,7 +30,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/proyectos",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-02T19:30:02Z"
+      "detectedAt": "2026-11-03T17:03:45Z"
     },
     {
       "id": "gobiernos-locales-latam-2024-pinn-costa-rica-mitic-paraguay-habilidades-",
@@ -38,7 +38,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://www.abc.com.py/nacionales/2024/05/21/atencion-mitic-ofrece-400-becas-para-cursos-intensivos-en-competencias-digitales/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-02T19:30:02Z"
+      "detectedAt": "2026-11-03T17:03:46Z"
     },
     {
       "id": "abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-e",
@@ -46,7 +46,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-especialidad-programacion-blueprints-intermedio/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-02T19:30:07Z"
+      "detectedAt": "2026-11-03T17:03:51Z"
     },
     {
       "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine",
@@ -54,7 +54,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-02T19:30:08Z"
+      "detectedAt": "2026-11-03T17:03:52Z"
     },
     {
       "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista",
@@ -62,7 +62,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-02T19:30:09Z"
+      "detectedAt": "2026-11-03T17:03:55Z"
     },
     {
       "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en",
@@ -70,9 +70,9 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en-animacion-o-videojuegos/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-02T19:30:10Z"
+      "detectedAt": "2026-11-03T17:03:56Z"
     }
   ],
-  "generatedAt": "2026-11-02T19:30:10Z",
+  "generatedAt": "2026-11-03T17:03:56Z",
   "note": "Detección automática: no se publica como verificada hasta confirmar cobertura 100% en fuente oficial."
 }
