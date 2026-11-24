@@ -6,7 +6,7 @@
       "sourceName": "OEI",
       "url": "https://oei.int/becas/becas-iifac-cursos-diplomados-2026/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-23T21:24:57Z"
+      "detectedAt": "2026-11-24T20:10:14Z"
     },
     {
       "id": "matildex-ia",
@@ -14,7 +14,7 @@
       "sourceName": "Skillnest",
       "url": "https://www.matildex.com",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-23T21:25:11Z"
+      "detectedAt": "2026-11-24T20:10:32Z"
     },
     {
       "id": "becas",
@@ -22,7 +22,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/becas",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-23T21:25:14Z"
+      "detectedAt": "2026-11-24T20:10:34Z"
     },
     {
       "id": "formaci-n-in-house-2026-natura-natura-automatizaci-n-e-ia-con-n8n-google",
@@ -30,7 +30,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/proyectos",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-23T21:25:20Z"
+      "detectedAt": "2026-11-24T20:10:38Z"
     },
     {
       "id": "gobiernos-locales-latam-2024-pinn-costa-rica-mitic-paraguay-habilidades-",
@@ -38,41 +38,81 @@
       "sourceName": "Desafío Latam",
       "url": "https://www.abc.com.py/nacionales/2024/05/21/atencion-mitic-ofrece-400-becas-para-cursos-intensivos-en-competencias-digitales/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-23T21:25:22Z"
+      "detectedAt": "2026-11-24T20:10:39Z"
     },
     {
-      "id": "abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-e",
-      "title": "Abierto Proceso Formativo En Unreal Engine Generalista Y Unreal Engine Especialidad Programacion Blueprints Intermedio",
+      "id": "unreal-engine-generalista",
+      "title": "Unreal Engine Generalista",
       "sourceName": "CRTIC",
-      "url": "https://www.crtic.cl/convocatoria/abierto-proceso-formativo-en-unreal-engine-generalista-y-unreal-engine-especialidad-programacion-blueprints-intermedio/",
+      "url": "https://www.crtic.cl/curso/unreal-engine-generalista/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-23T21:25:25Z"
+      "detectedAt": "2026-11-24T20:10:40Z"
     },
     {
-      "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine",
-      "title": "Inscribete Ahora En Nuestros Cursos De Unreal Engine",
+      "id": "unreal-engine-animaci-n",
+      "title": "Unreal Engine Animación",
       "sourceName": "CRTIC",
-      "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine/",
+      "url": "https://www.crtic.cl/curso/unreal-engine-animacion/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-23T21:25:26Z"
+      "detectedAt": "2026-11-24T20:10:40Z"
     },
     {
-      "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista",
-      "title": "Inscribete Ahora En Nuestros Cursos De Unreal Engine Generalista",
+      "id": "unreal-engine-videojuegos",
+      "title": "Unreal Engine Videojuegos",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/curso/unreal-engine-videojuegos/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-11-24T20:10:40Z"
+    },
+    {
+      "id": "unreal-engine-pro-blueprints",
+      "title": "Unreal Engine Pro: Blueprints",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/curso/unreal-engine-pro-blueprints/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-11-24T20:10:40Z"
+    },
+    {
+      "id": "ia-para-creaci-n-audiovisual",
+      "title": "IA para creación audiovisual",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/curso/ia-para-creacion-av/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-11-24T20:10:41Z"
+    },
+    {
+      "id": "ia-para-publicidad-y-marketing-digital",
+      "title": "IA para publicidad y marketing digital",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/curso/ia-para-publicidad-y-marketing-digital/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-11-24T20:10:41Z"
+    },
+    {
+      "id": "m-sica-inmersiva-con-ia-y-dolby-atmos",
+      "title": "Música inmersiva con IA y Dolby Atmos",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/curso/musica-inmersiva-creacion-musical-con-ia-y-mezcla-en-dolby-atmos/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-11-24T20:10:41Z"
+    },
+    {
+      "id": "touchdesigner-desde-cero",
+      "title": "TouchDesigner desde cero",
+      "sourceName": "CRTIC",
+      "url": "https://www.crtic.cl/curso/touchdesigner-desde-cero-creacion-visual-e-interactividad-en-tiempo-real/",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-11-24T20:10:41Z"
+    },
+    {
+      "id": "postula-hasta-25-03",
+      "title": "Postula hasta 25.03 →",
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-23T21:25:29Z"
-    },
-    {
-      "id": "inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en",
-      "title": "Inscribete Ahora En Nuestros Cursos De Unreal Engine Con Especialidad En Animacion O Videojuegos",
-      "sourceName": "CRTIC",
-      "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-con-especialidad-en-animacion-o-videojuegos/",
-      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-23T21:25:30Z"
+      "detectedAt": "2026-11-24T20:10:42Z"
     }
   ],
-  "generatedAt": "2026-11-23T21:25:30Z",
+  "generatedAt": "2026-11-24T20:10:43Z",
   "note": "Detección automática: no se publica como verificada hasta confirmar cobertura 100% en fuente oficial."
 }
