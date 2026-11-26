@@ -6,15 +6,23 @@
       "sourceName": "OEI",
       "url": "https://oei.int/becas/becas-iifac-cursos-diplomados-2026/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:07Z"
+      "detectedAt": "2026-11-26T19:00:14Z"
     },
     {
-      "id": "matildex-ia",
-      "title": "Matildex IA",
+      "id": "recursos",
+      "title": "Recursos",
       "sourceName": "Skillnest",
-      "url": "https://www.matildex.com",
+      "url": "https://www.skillnest.com/blog",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:20Z"
+      "detectedAt": "2026-11-26T19:00:18Z"
+    },
+    {
+      "id": "convocatorias",
+      "title": "Convocatorias",
+      "sourceName": "Skillnest",
+      "url": "https://www.skillnest.com/iniciativa-plateada-emprendimientos-55-entel",
+      "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
+      "detectedAt": "2026-11-26T19:00:18Z"
     },
     {
       "id": "becas",
@@ -22,7 +30,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/becas",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:22Z"
+      "detectedAt": "2026-11-26T19:00:20Z"
     },
     {
       "id": "formaci-n-in-house-2026-natura-natura-automatizaci-n-e-ia-con-n8n-google",
@@ -30,7 +38,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://desafiolatam.com/proyectos",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:27Z"
+      "detectedAt": "2026-11-26T19:00:24Z"
     },
     {
       "id": "gobiernos-locales-latam-2024-pinn-costa-rica-mitic-paraguay-habilidades-",
@@ -38,7 +46,7 @@
       "sourceName": "Desafío Latam",
       "url": "https://www.abc.com.py/nacionales/2024/05/21/atencion-mitic-ofrece-400-becas-para-cursos-intensivos-en-competencias-digitales/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:29Z"
+      "detectedAt": "2026-11-26T19:00:26Z"
     },
     {
       "id": "unreal-engine-generalista",
@@ -46,7 +54,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/curso/unreal-engine-generalista/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:29Z"
+      "detectedAt": "2026-11-26T19:00:26Z"
     },
     {
       "id": "unreal-engine-animaci-n",
@@ -54,7 +62,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/curso/unreal-engine-animacion/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:30Z"
+      "detectedAt": "2026-11-26T19:00:26Z"
     },
     {
       "id": "unreal-engine-videojuegos",
@@ -62,7 +70,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/curso/unreal-engine-videojuegos/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:30Z"
+      "detectedAt": "2026-11-26T19:00:26Z"
     },
     {
       "id": "unreal-engine-pro-blueprints",
@@ -70,7 +78,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/curso/unreal-engine-pro-blueprints/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:30Z"
+      "detectedAt": "2026-11-26T19:00:26Z"
     },
     {
       "id": "ia-para-creaci-n-audiovisual",
@@ -78,7 +86,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/curso/ia-para-creacion-av/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:30Z"
+      "detectedAt": "2026-11-26T19:00:27Z"
     },
     {
       "id": "ia-para-publicidad-y-marketing-digital",
@@ -86,7 +94,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/curso/ia-para-publicidad-y-marketing-digital/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:30Z"
+      "detectedAt": "2026-11-26T19:00:27Z"
     },
     {
       "id": "m-sica-inmersiva-con-ia-y-dolby-atmos",
@@ -94,7 +102,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/curso/musica-inmersiva-creacion-musical-con-ia-y-mezcla-en-dolby-atmos/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:30Z"
+      "detectedAt": "2026-11-26T19:00:27Z"
     },
     {
       "id": "touchdesigner-desde-cero",
@@ -102,7 +110,7 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/curso/touchdesigner-desde-cero-creacion-visual-e-interactividad-en-tiempo-real/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:31Z"
+      "detectedAt": "2026-11-26T19:00:27Z"
     },
     {
       "id": "postula-hasta-25-03",
@@ -110,9 +118,9 @@
       "sourceName": "CRTIC",
       "url": "https://www.crtic.cl/convocatoria/inscribete-ahora-en-nuestros-cursos-de-unreal-engine-generalista/",
       "detectedCoverage": "Posible cobertura 100% — requiere revisión humana",
-      "detectedAt": "2026-11-25T19:16:32Z"
+      "detectedAt": "2026-11-26T19:00:28Z"
     }
   ],
-  "generatedAt": "2026-11-25T19:16:32Z",
+  "generatedAt": "2026-11-26T19:00:28Z",
   "note": "Detección automática: no se publica como verificada hasta confirmar cobertura 100% en fuente oficial."
 }
